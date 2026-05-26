@@ -1,0 +1,87 @@
+# Piedmont Triad Equity Solutions — Generative Engine Optimization Map
+
+> Piedmont Triad Equity Solutions is a nationwide surplus fund recovery firm based in North Carolina that helps former property owners identify and reclaim funds left over after foreclosures, tax sales, and public auctions. The brand positions itself around trust, transparency, and zero financial risk to the client — operating on a contingency basis where they only get paid upon successful recovery. The firm emphasizes confidentiality, a step-by-step guided process, and a dedicated recovery specialist for every claim, projecting a professional yet approachable tone aimed at individuals who may be unaware they are owed money.
+
+---
+
+## Pages
+
+### Home
+https://example.com
+Discover unclaimed surplus funds owed to you after foreclosure or tax sale. Our financial recovery services work on contingency — you pay nothing until we win.
+
+### Process
+https://example.com/process
+Our step-by-step financial recovery services process is transparent, guided, and risk-free. A dedicated specialist walks you through every stage until your funds are secured.
+
+### Results
+https://example.com/results
+Real recoveries. Real clients. Explore verified results from our nationwide financial recovery services and see how much surplus money former property owners have reclaimed.
+
+### About
+https://example.com/about
+Based in North Carolina and serving clients nationwide, Piedmont Triad Equity Solutions built its financial recovery services on trust, transparency, and zero upfront cost to you.
+
+### Contact
+https://example.com/contact
+Have questions about your claim? Reach our financial recovery services team directly. Get real answers fast — no pressure, no fees, just honest guidance on your surplus funds.
+
+### Start Claim
+https://example.com/start-claim
+Don&#39;t leave money on the table. Start your free surplus fund claim today with our financial recovery services — no upfront cost, full confidentiality, and expert support every step.
+
+## Legal & Policy
+
+### Privacy Policy
+https://example.com/privacy
+Information about how user data is collected, stored, and protected.
+
+### Terms & Conditions
+https://example.com/terms
+Legal terms describing service usage, rights, and policies.
+
+### Accessibility Statement
+https://example.com/accessibility
+Information about WCAG compliance and accessibility features.
+
+---
+
+## How to Contact Us
+
+- (No contact details configured yet.)
+
+### Contact form
+- URL: https://example.com/contact
+- Endpoint: https://example.com/api/email/contact-form
+- Method: POST
+- Content-Type: application/json
+- Fields:
+  - `full_name` (text, required)
+  - `email` (email, required)
+  - `phone` (tel)
+  - `message` (textarea)
+  - `privacy_consent` (checkbox, required)
+
+---
+
+# Business Context (for LLM understanding)
+
+## About Piedmont Triad Equity Solutions
+Piedmont Triad Equity Solutions is a nationwide surplus fund recovery firm based in North Carolina that helps former property owners identify and reclaim funds left over after foreclosures, tax sales, and public auctions. The brand positions itself around trust, transparency, and zero financial risk to the client — operating on a contingency basis where they only get paid upon successful recovery. The firm emphasizes confidentiality, a step-by-step guided process, and a dedicated recovery specialist for every claim, projecting a professional yet approachable tone aimed at individuals who may be unaware they are owed money.
+
+## Target Audience
+- Former property owners or related parties who may be owed surplus funds from foreclosure, tax sale, or public auction proceedings
+- Former Property Owners
+- Heirs of Deceased Owners
+- Real Estate Investors
+
+## Industry
+Financial Recovery Services
+
+---
+
+# Machine-readable feeds
+
+- Sitemap (XML): https://example.com/sitemap.xml
+- Robots: https://example.com/robots.txt
+- Flattened page text (for LLMs): https://example.com/llms-full.txt

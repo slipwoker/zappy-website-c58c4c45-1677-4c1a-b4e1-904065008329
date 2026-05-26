@@ -1,0 +1,1592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow">
+    <title>Reclaim What&#39;s Yours — Piedmont Triad Equity Solutions</title>
+    <meta name="description" content="Discover unclaimed surplus funds owed to you after foreclosure or tax sale. Our financial recovery services work on contingency — you pay nothing until we win.">
+    <meta name="keywords" content="Financial Recovery Services, surplus fund recovery, unclaimed foreclosure funds, contingency recovery firm, financial recovery services inc">
+    
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="/assets/favicon-48x48.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/assets/favicon-512x512.png">
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+    <!-- Zappy Analytics -->
+<script>
+(function() {
+  'use strict';
+  
+  // Configuration
+  var config = {
+    websiteId: 'c58c4c45-1677-4c1a-b4e1-904065008329',
+    apiUrl: 'https://api.zappy5.com/api/analytics/track',
+    sessionDuration: 30 * 60 * 1000, // 30 minutes
+    visitorDuration: 30 * 24 * 60 * 60 * 1000, // 30 days
+    trackPageViews: true,
+    trackClicks: true,
+    trackFormSubmissions: true
+  };
+  
+  // Generate or retrieve persistent visitor ID (30 days)
+  function getVisitorId() {
+    var visitorKey = 'zappy_visitor_' + config.websiteId;
+    var visitor = null;
+    
+    try {
+      visitor = localStorage.getItem(visitorKey);
+      if (visitor) {
+        var visitorData = JSON.parse(visitor);
+        var now = Date.now();
+        
+        // Check if visitor ID is still valid (30 days)
+        if (now - visitorData.created < config.visitorDuration) {
+          // Update last seen timestamp
+          visitorData.lastSeen = now;
+          localStorage.setItem(visitorKey, JSON.stringify(visitorData));
+          return visitorData.id;
+        }
+      }
+    } catch (e) {
+      console.warn('Zappy Analytics: LocalStorage not available');
+    }
+    
+    // Generate new visitor ID
+    var newVisitorId = 'zv_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+    
+    try {
+      localStorage.setItem(visitorKey, JSON.stringify({
+        id: newVisitorId,
+        created: Date.now(),
+        lastSeen: Date.now()
+      }));
+    } catch (e) {
+      // Continue without local storage
+    }
+    
+    return newVisitorId;
+  }
+  
+  // Generate or retrieve session ID (30 minutes)
+  function getSessionId() {
+    var sessionKey = 'zappy_session_' + config.websiteId;
+    var session = null;
+    
+    try {
+      session = sessionStorage.getItem(sessionKey);
+      if (session) {
+        var sessionData = JSON.parse(session);
+        var now = Date.now();
+        
+        // Check if session is still valid
+        if (now - sessionData.timestamp < config.sessionDuration) {
+          // Update timestamp
+          sessionData.timestamp = now;
+          sessionStorage.setItem(sessionKey, JSON.stringify(sessionData));
+          return sessionData.id;
+        }
+      }
+    } catch (e) {
+      console.warn('Zappy Analytics: SessionStorage not available');
+    }
+    
+    // Generate new session ID
+    var newSessionId = 'zs_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+    
+    try {
+      sessionStorage.setItem(sessionKey, JSON.stringify({
+        id: newSessionId,
+        timestamp: Date.now()
+      }));
+    } catch (e) {
+      // Continue without session storage
+    }
+    
+    return newSessionId;
+  }
+  
+  var visitorId = getVisitorId();
+  var sessionId = getSessionId();
+  
+  // Track an event
+  function trackEvent(eventType, data) {
+    data = data || {};
+    
+    var eventData = {
+      website_id: config.websiteId,
+      event_type: eventType,
+      page_path: window.location.pathname,
+      referrer: document.referrer || 'direct',
+      visitor_id: visitorId,
+      session_id: sessionId,
+      metadata: data
+    };
+    
+    // Use sendBeacon if available (better for page unload events)
+    if (navigator.sendBeacon) {
+      var blob = new Blob([JSON.stringify(eventData)], { type: 'application/json' });
+      navigator.sendBeacon(config.apiUrl, blob);
+    } else {
+      // Fallback to fetch
+      fetch(config.apiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(eventData),
+        keepalive: true
+      }).catch(function(error) {
+        console.warn('Zappy Analytics: Failed to track event', error);
+      });
+    }
+  }
+  
+  // Track page view
+  if (config.trackPageViews) {
+    trackEvent('pageview', {
+      title: document.title,
+      url: window.location.href
+    });
+  }
+  
+  // Track clicks on important elements
+  if (config.trackClicks) {
+    document.addEventListener('click', function(e) {
+      var target = e.target;
+      
+      // Track button clicks (counted as actions)
+      if (target.tagName === 'BUTTON' || target.closest('button')) {
+        var button = target.tagName === 'BUTTON' ? target : target.closest('button');
+        trackEvent('click', {
+          element: 'button',
+          text: button.textContent.trim().substring(0, 100),
+          id: button.id || null,
+          class: button.className || null
+        });
+      }
+      
+      // Track link clicks (navigation - not counted as actions)
+      else if (target.tagName === 'A' || target.closest('a')) {
+        var link = target.tagName === 'A' ? target : target.closest('a');
+        trackEvent('navigation', {
+          element: 'link',
+          text: link.textContent.trim().substring(0, 100),
+          href: link.href,
+          external: link.hostname !== window.location.hostname
+        });
+      }
+    }, true);
+  }
+  
+  // Track form submissions
+  if (config.trackFormSubmissions) {
+    document.addEventListener('submit', function(e) {
+      var form = e.target;
+      
+      trackEvent('form_submit', {
+        form_id: form.id || null,
+        form_name: form.name || null,
+        form_action: form.action || null,
+        form_method: form.method || 'GET'
+      });
+    }, true);
+  }
+  
+  // Track time on page (send on page unload)
+  var pageLoadTime = Date.now();
+  
+  window.addEventListener('beforeunload', function() {
+    var timeOnPage = Math.floor((Date.now() - pageLoadTime) / 1000); // in seconds
+    
+    trackEvent('page_unload', {
+      time_on_page: timeOnPage,
+      page_path: window.location.pathname
+    });
+  });
+  
+  // Expose tracking function globally for custom events
+  window.zappyAnalytics = {
+    track: trackEvent,
+    getVisitorId: function() { return visitorId; },
+    getSessionId: function() { return sessionId; }
+  };
+  
+})();
+</script>
+<!-- End Zappy Analytics -->
+    <meta property="og:title" content="Reclaim What&#39;s Yours — Piedmont Triad Equity Solutions">
+    <meta property="og:description" content="Discover unclaimed surplus funds owed to you after foreclosure or tax sale. Our financial recovery services work on contingency — you pay nothing until we win.">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Reclaim What&#39;s Yours — Piedmont Triad Equity Solutions">
+    <meta name="twitter:description" content="Discover unclaimed surplus funds owed to you after foreclosure or tax sale. Our financial recovery services work on contingency — you pay nothing until we win.">
+    <meta property="og:type" content="website">
+  <meta property="og:locale" content="en_US">
+  
+  
+  
+  
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    .skip-link { position: absolute; top: 0; left: 0; transform: translateY(-200%); padding: 12px 18px; background: var(--bg-dark, #1a1a1a); color: var(--text-light, #fff); font-weight: 600; border-radius: 0 0 8px 0; z-index: 10000; }
+    .skip-link:focus { transform: none; outline: 2px solid var(--ring, #fff); outline-offset: 2px; }
+    :focus-visible { outline: 2px solid var(--ring, currentColor); outline-offset: 3px; }
+  </style>
+
+
+  
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="/assets/favicon-48x48.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/assets/favicon-512x512.png">
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+    <!-- Cookie Consent -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vanilla-cookieconsent@3/dist/cookieconsent.css">
+    <script src="https://cdn.jsdelivr.net/npm/vanilla-cookieconsent@3/dist/cookieconsent.umd.js"></script>
+    <!-- Mickidum Accessibility Toolbar -->
+    <script src="https://cdn.jsdelivr.net/gh/mickidum/acc_toolbar/acctoolbar/acctoolbar.min.js"></script>
+    <link rel="stylesheet" href="/styles.css">
+    <script>window.ZAPPY_WEBSITE_ID = "c58c4c45-1677-4c1a-b4e1-904065008329"; window.ZAPPY_API_BASE = "https://api.zappy5.com";</script>
+
+    <style id="zappy-dropdown-submenu-styles">
+      /* ========== DESKTOP DROPDOWN SUBMENU STYLES ========== */
+      /* Base styles for dropdown submenus - parent must be positioned */
+      .nav-menu li:has(.sub-menu), nav li:has(.sub-menu), .navbar li:has(.sub-menu), #navMenu li:has(.sub-menu) { position: relative; }
+      /* Submenu base - hidden by default */
+      .nav-menu .sub-menu, nav .sub-menu, .navbar .sub-menu, #navMenu .sub-menu { display: block !important; position: absolute !important; top: 100%; left: 0; min-width: 220px; background: white; border-radius: 8px; box-shadow: 0 8px 25px rgba(0,0,0,0.15); padding: 8px 0; opacity: 0; visibility: hidden; transform: translateY(10px); transition: all 0.3s ease; z-index: 1000; list-style: none; pointer-events: none; }
+      /* CRITICAL: Desktop hover styles to show dropdown */
+      .nav-menu li:hover > .sub-menu, nav li:hover > .sub-menu, .navbar li:hover > .sub-menu, #navMenu li:hover > .sub-menu { opacity: 1 !important; visibility: visible !important; transform: translateY(0) !important; pointer-events: auto !important; }
+      /* Submenu item styling */
+      .sub-menu li { list-style: none; margin: 0; padding: 0; }
+      .sub-menu a { display: block !important; padding: 10px 16px !important; color: var(--text-dark, #333) !important; font-weight: 500; text-decoration: none; white-space: nowrap; transition: background-color 0.2s; }
+      .sub-menu .zappy-nav-child > a { padding-left: 28px !important; font-size: 0.9em !important; opacity: 0.85 !important; }
+      [dir="rtl"] .sub-menu .zappy-nav-child > a, html[lang="he"] .sub-menu .zappy-nav-child > a, html[lang="ar"] .sub-menu .zappy-nav-child > a { padding-left: 10px !important; padding-right: 28px !important; }
+      .sub-menu .zappy-nav-parent > a { font-weight: 600 !important; }
+      .sub-menu a:hover { background-color: #f5f5f5; }
+      /* RTL (Hebrew/Arabic) dropdown positioning */
+      [dir="rtl"] .nav-menu .sub-menu, [dir="rtl"] nav .sub-menu, [dir="rtl"] .navbar .sub-menu, html[lang="he"] .nav-menu .sub-menu, html[lang="he"] nav .sub-menu, html[lang="he"] .navbar .sub-menu, html[lang="ar"] .nav-menu .sub-menu, html[lang="ar"] nav .sub-menu, html[lang="ar"] .navbar .sub-menu { left: auto !important; right: 0 !important; }
+      /* Hide empty dropdown menus (exclude catalog sub-menus that use <a> children instead of <li>) */
+      .sub-menu:empty, .sub-menu:not(:has(li:not(.zappy-hidden-menu-item))):not(:has(> a)), .sub-menu:not(:has(li)):not(:has(> a)) { display: none !important; opacity: 0 !important; visibility: hidden !important; pointer-events: none !important; }
+      /* Desktop: show submenu on Menu Group hover */
+      li:has(.menu-group-title):hover > .sub-menu { opacity: 1 !important; visibility: visible !important; transform: translateY(0) !important; pointer-events: auto !important; }
+      /* Menu Group title styling */
+      .nav-menu > li > .menu-group-title, #navMenu > li > .menu-group-title { display: inline-block; padding: 0.5rem 1rem; cursor: default; user-select: none; }
+      
+      /* ========== MOBILE SUBMENU STYLES ========== */
+      @media (max-width: 768px) {
+        .nav-menu .sub-menu, nav .sub-menu, .navbar .sub-menu, #navMenu .sub-menu { position: static !important; transform: none !important; box-shadow: none !important; background: transparent !important; max-height: 0; overflow: hidden; opacity: 0; visibility: hidden; transition: max-height 0.3s ease, opacity 0.3s ease; padding: 0 !important; border-radius: 0 !important; }
+        .navbar .sub-menu.mobile-expanded, .nav-menu .sub-menu.mobile-expanded, #navMenu .sub-menu.mobile-expanded { max-height: none !important; overflow-y: visible !important; opacity: 1 !important; visibility: visible !important; padding: 8px 0 8px 16px !important; }
+        [dir="rtl"] .sub-menu.mobile-expanded, html[lang="he"] .sub-menu.mobile-expanded { padding: 8px 16px 8px 0 !important; }
+        /* Disable hover behavior on mobile */
+        .nav-menu li:hover > .sub-menu, nav li:hover > .sub-menu, .navbar li:hover > .sub-menu, #navMenu li:hover > .sub-menu { opacity: 0; visibility: hidden; pointer-events: none; }
+        .nav-menu li > .sub-menu.mobile-expanded, nav li > .sub-menu.mobile-expanded, .navbar li > .sub-menu.mobile-expanded, #navMenu li > .sub-menu.mobile-expanded { opacity: 1 !important; visibility: visible !important; pointer-events: auto !important; }
+        .nav-menu li:has(.sub-menu), nav li:has(.sub-menu), .navbar li:has(.sub-menu), #navMenu li:has(.sub-menu) { display: flex !important; flex-wrap: wrap !important; align-items: center !important; position: relative !important; min-height: 44px !important; }
+        .nav-menu li:has(.sub-menu) > a, nav li:has(.sub-menu) > a, .navbar li:has(.sub-menu) > a, #navMenu li:has(.sub-menu) > a { flex: 1 !important; min-width: 0 !important; }
+        .nav-menu li:has(.sub-menu) > .menu-group-title, nav li:has(.sub-menu) > .menu-group-title, .navbar li:has(.sub-menu) > .menu-group-title, #navMenu li:has(.sub-menu) > .menu-group-title { flex: 1 !important; min-width: 0 !important; padding: 0 !important; line-height: inherit !important; }
+        .nav-menu li:has(.sub-menu) > .sub-menu, nav li:has(.sub-menu) > .sub-menu, .navbar li:has(.sub-menu) > .sub-menu, #navMenu li:has(.sub-menu) > .sub-menu { flex-basis: 100% !important; width: 100% !important; }
+        .nav-menu li:has(.sub-menu) > a [class*="chevron"], .nav-menu li:has(.sub-menu) > a [class*="arrow"], .nav-menu li:has(.sub-menu) > a .fa-chevron-down, .nav-menu li:has(.sub-menu) > a .fa-angle-down, nav li:has(.sub-menu) > a [class*="chevron"], nav li:has(.sub-menu) > a [class*="arrow"], #navMenu li:has(.sub-menu) > a [class*="chevron"], #navMenu li:has(.sub-menu) > a [class*="arrow"] { display: none !important; visibility: hidden !important; }
+        .mobile-submenu-toggle { display: flex !important; align-items: center !important; justify-content: center !important; width: 44px !important; height: auto !important; background: transparent !important; border: none !important; cursor: pointer !important; color: var(--text-light) !important; position: static !important; flex-shrink: 0 !important; align-self: stretch !important; z-index: 2 !important; padding: 0 !important; margin: 0 !important; }
+        .mobile-submenu-toggle::after { content: '' !important; width: 0 !important; height: 0 !important; border-left: 6px solid transparent !important; border-right: 6px solid transparent !important; border-top: 7px solid currentColor !important; transition: transform 0.3s ease !important; }
+        .mobile-submenu-toggle.expanded::after { transform: rotate(180deg) !important; }
+        .sub-menu a { padding: 10px 0 !important; display: block !important; color: var(--text-light) !important; white-space: normal !important; }
+        .sub-menu .zappy-nav-child > a { padding-left: 28px !important; font-size: 0.9em !important; opacity: 0.85 !important; }
+        [dir="rtl"] .sub-menu .zappy-nav-child > a, html[lang="he"] .sub-menu .zappy-nav-child > a, html[lang="ar"] .sub-menu .zappy-nav-child > a { padding-left: 0 !important; padding-right: 28px !important; }
+        .sub-menu .zappy-nav-parent > a { font-weight: 600 !important; }
+        .nav-menu.active, #navMenu.active { max-width: 100vw !important; overflow-x: hidden !important; box-sizing: border-box !important; }
+        .navbar .sub-menu li a, nav.navbar .sub-menu li a, .zappy-products-dropdown .sub-menu a { color: var(--text-light) !important; }
+      }
+      @media (min-width: 769px) { .mobile-submenu-toggle { display: none !important; } }
+    </style>
+
+    <style id="zappy-widget-visibility">
+      html[dir="rtl"] .whatsapp-float { right: 20px !important; left: auto !important; }
+      html[dir="ltr"] .whatsapp-float, html:not([dir]) .whatsapp-float { left: 20px !important; right: auto !important; }
+      html[dir="rtl"] #mic-access-tool-general-button, html[dir="rtl"] .mic-access-tool-general-button,
+      html[dir="rtl"] #mic-init-access-tool .mic-access-tool-general-button,
+      html[dir="rtl"] #mic-init-access-tool #mic-access-tool-general-button,
+      html[dir="rtl"] ._access-icon { left: 20px !important; right: auto !important; }
+      html[dir="ltr"] #mic-access-tool-general-button, html[dir="ltr"] .mic-access-tool-general-button,
+      html[dir="ltr"] #mic-init-access-tool .mic-access-tool-general-button,
+      html[dir="ltr"] #mic-init-access-tool #mic-access-tool-general-button,
+      html[dir="ltr"] ._access-icon,
+      html:not([dir]) #mic-access-tool-general-button, html:not([dir]) .mic-access-tool-general-button,
+      html:not([dir]) #mic-init-access-tool .mic-access-tool-general-button,
+      html:not([dir]) #mic-init-access-tool #mic-access-tool-general-button,
+      html:not([dir]) ._access-icon { right: 20px !important; left: auto !important; }
+      @media (max-width: 768px) { .whatsapp-float { display: flex !important; } }
+      @media (min-width: 769px) { .whatsapp-float { display: flex !important; } }
+      @media (max-width: 768px) {
+        #mic-access-tool-general-button, .mic-access-tool-general-button,
+        #mic-init-access-tool .mic-access-tool-general-button, #mic-init-access-tool #mic-access-tool-general-button,
+        ._access-icon { display: flex !important; visibility: visible !important; opacity: 1 !important; pointer-events: auto !important; }
+        #mic-access-tool-box.opened-mic-access-tool, .mic-access-tool-box.opened-mic-access-tool,
+        #mic-init-access-tool #mic-access-tool-box.opened-mic-access-tool {
+          visibility: visible !important; opacity: 1 !important; pointer-events: auto !important;
+        }
+      }
+      @media (min-width: 769px) {
+        #mic-access-tool-general-button, .mic-access-tool-general-button,
+        #mic-init-access-tool .mic-access-tool-general-button, #mic-init-access-tool #mic-access-tool-general-button,
+        ._access-icon { display: flex !important; visibility: visible !important; opacity: 1 !important; pointer-events: auto !important; }
+        #mic-access-tool-box.opened-mic-access-tool, .mic-access-tool-box.opened-mic-access-tool,
+        #mic-init-access-tool #mic-access-tool-box.opened-mic-access-tool {
+          visibility: visible !important; opacity: 1 !important; pointer-events: auto !important;
+        }
+      }
+    </style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+  <nav class="navbar">
+  <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">
+    <svg class="hamburger-icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
+      <path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+    </svg>
+    <svg class="close-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" style="display: none;">
+      <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+    </svg>
+  </button>
+
+  <button class="phone-header-btn" data-phone="[business_phone]" aria-label="Call">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+    </svg>
+  </button>
+
+  <div class="nav-container">
+    <div class="nav-brand">
+      <a href="/" class="logo-link"><img class="logo" src="/assets/site-home-image-1.webp" alt="Piedmont Triad Equity Solutions"></a>
+    </div>
+
+    <ul class="nav-menu" id="navMenu"><li><a href="/">Home</a></li><li><a href="/process">Process</a></li><li><a href="/results">Results</a></li><li><a href="/about">About</a></li><li><a href="/start-claim">Start Claim</a></li></ul>
+
+    <div class="nav-cta-container">
+      <a href="/contact" class="nav-cta-btn">Contact</a>
+    </div>
+  </div>
+</nav>
+<script>
+
+// Navbar Mobile Menu Toggle and Contrast Fix
+(function() {
+  // Use 'load' event instead of 'DOMContentLoaded' to ensure we run AFTER all other scripts
+  window.addEventListener('load', function() {
+    
+    // FIX MOBILE BUTTON CONTRAST
+    // Detect navbar background color and apply contrasting color to mobile buttons
+    const navbar = document.querySelector('.navbar, nav, header');
+    if (!navbar) {
+      console.log('[Navbar] Navbar element not found');
+      return;
+    }
+    
+    // DECLARE VARIABLES EARLY to avoid Temporal Dead Zone errors
+    // These are used in multiple places below
+    let mobileToggle = document.getElementById('mobileToggle') ||
+                       document.querySelector('.mobile-toggle') ||
+                       document.querySelector('.hamburger') ||
+                       document.querySelector('.hamburger-menu') ||
+                       document.querySelector('.menu-toggle') ||
+                       document.querySelector('.burger-menu') ||
+                       document.querySelector('[aria-label="Menu"]') ||
+                       document.querySelector('[aria-label="תפריט"]');
+    
+    const phoneBtn = document.querySelector('.phone-header-btn');
+    
+    const computedStyle = window.getComputedStyle(navbar);
+    let bgColor = computedStyle.backgroundColor;
+    
+    console.log('[Navbar] Initial navbar background:', bgColor);
+    
+    // Check if background is transparent or rgba with 0 alpha
+    const isTransparent = bgColor === 'transparent' || 
+                         bgColor === 'rgba(0, 0, 0, 0)' ||
+                         (bgColor.startsWith('rgba') && bgColor.includes(', 0)'));
+    
+    if (isTransparent) {
+      // Check for background-image or gradient
+      const bgImage = computedStyle.backgroundImage;
+      if (bgImage && bgImage !== 'none') {
+        console.log('[Navbar] Navbar has background image/gradient, using dark text');
+        bgColor = 'rgb(240, 240, 240)'; // Assume light background
+      } else {
+        // Transparent navbar - check body background
+        const bodyBg = window.getComputedStyle(document.body).backgroundColor;
+        console.log('[Navbar] Navbar transparent, using body background:', bodyBg);
+        bgColor = bodyBg;
+      }
+    }
+    
+    // Calculate luminance to determine if background is light or dark
+    const rgb = bgColor.match(/\d+/g);
+    if (rgb && rgb.length >= 3) {
+      const r = parseInt(rgb[0]);
+      const g = parseInt(rgb[1]);
+      const b = parseInt(rgb[2]);
+      const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+      
+      // Mobile button colors are set by Claude's AI-generated CSS (same as .nav-menu a)
+      // No dynamic color overrides needed - colors come from the generated navbar CSS
+      console.log('[Navbar] Mobile button colors preserved from Claude CSS (luminance:', luminance.toFixed(2) + ')');
+      
+      // FIX ICON SIZES - Ensure SVGs are properly sized and visible
+      // INJECT CRITICAL CSS TO OVERRIDE ANY CONFLICTING RULES
+      const criticalCSS = document.createElement('style');
+      criticalCSS.id = 'zappy-mobile-nav-fix';
+      const htmlLang = document.documentElement.lang || 'en';
+      const htmlDir = document.documentElement.dir || 'ltr';
+      // Check both dir attribute AND lang for RTL detection
+      // dir="rtl" is the most reliable indicator
+      const isRTL = htmlDir === 'rtl' || htmlLang === 'he' || htmlLang === 'ar';
+      
+      criticalCSS.textContent = `
+        /* Hide mobile buttons on desktop, show only on mobile */
+        @media (min-width: 769px) {
+          .mobile-toggle,
+          .phone-header-btn {
+            display: none !important;
+          }
+        }
+        
+        /* Show and position mobile buttons correctly on mobile */
+        @media (max-width: 768px) {
+          .navbar,
+          nav.navbar {
+            min-height: 70px !important;
+          }
+
+          .mobile-toggle,
+          .phone-header-btn {
+            position: absolute !important;
+            top: 0 !important;
+            bottom: 0 !important;
+            margin-top: auto !important;
+            margin-bottom: auto !important;
+            transform: none !important;
+            z-index: 1001 !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            width: 36px !important;
+            height: 36px !important;
+            border-radius: 50% !important;
+            border: none !important;
+            cursor: pointer !important;
+            padding: 6px !important;
+            background: none !important;
+            color: var(--nav-text, var(--text-light)) !important;
+            touch-action: manipulation !important;
+            -webkit-tap-highlight-color: transparent !important;
+          }
+
+          html[data-zappy-site-type="ecommerce"] .phone-header-btn,
+          body[data-zappy-site-type="ecommerce"] .phone-header-btn,
+          html[data-zappy-site-type="ecommerce"] header .phone-header-btn,
+          html[data-zappy-site-type="ecommerce"] nav .phone-header-btn {
+            display: none !important;
+            visibility: hidden !important;
+            width: 0 !important;
+            height: 0 !important;
+            min-width: 0 !important;
+            overflow: hidden !important;
+          }
+          
+          /* LTR positioning (default): hamburger LEFT, phone RIGHT */
+          html:not([dir="rtl"]):not([lang="he"]):not([lang="ar"]) .mobile-toggle,
+          html[dir="ltr"] .mobile-toggle {
+            left: 12px !important;
+            right: auto !important;
+          }
+          html:not([dir="rtl"]):not([lang="he"]):not([lang="ar"]) .phone-header-btn,
+          html[dir="ltr"] .phone-header-btn {
+            right: 12px !important;
+            left: auto !important;
+          }
+          
+          /* RTL positioning: hamburger RIGHT, phone LEFT */
+          html[dir="rtl"] .mobile-toggle,
+          html[lang="he"] .mobile-toggle,
+          html[lang="ar"] .mobile-toggle {
+            right: 12px !important;
+            left: auto !important;
+          }
+          html[dir="rtl"] .phone-header-btn,
+          html[lang="he"] .phone-header-btn,
+          html[lang="ar"] .phone-header-btn {
+            left: 12px !important;
+            right: auto !important;
+          }
+          
+          /* CRITICAL: Ensure nav-container has min-height on mobile */
+          /* All children are positioned absolutely/fixed on mobile, so height:auto collapses to 0 */
+          .nav-container {
+            min-height: 70px !important;
+            position: relative !important;
+          }
+          
+          /* Ensure SVG icons are properly sized and inherit color */
+          .mobile-toggle svg,
+          .phone-header-btn svg {
+            width: 24px !important;
+            height: 24px !important;
+            /* Don't force display - let JavaScript control hamburger/close toggle */
+          }
+          
+          /* Reset nav-cta-container on mobile - remove desktop box-shadow/padding */
+          /* that creates a visible ghost box when CTA button is hidden */
+          .nav-cta-container {
+            box-shadow: none !important;
+            padding: 0 !important;
+          }
+          
+          /* Hide nav-cta-container entirely on mobile when there's no lang-switcher */
+          /* (only the CTA button is inside, and it's hidden on mobile) */
+          .nav-cta-container:not(:has(.lang-switcher)) {
+            display: none !important;
+          }
+          
+          /* CRITICAL: Prevent hero image fade gradient from bleeding over headline text */
+          /* The .image-fade-gradient has bottom: -30px (extends below parent) */
+          /* On mobile stacked layout, this overlaps the h1 text below the image */
+          .hero-image-column {
+            overflow: hidden !important;
+          }
+          .image-fade-gradient {
+            bottom: 0 !important;
+          }
+          
+          /* Hide desktop language switcher on mobile - hamburger menu handles it */
+          /* High specificity to override stored CSS */
+          .lang-switcher,
+          .nav-cta-container .lang-switcher,
+          .nav-container .lang-switcher,
+          .navbar .lang-switcher,
+          .navbar .nav-cta-container .lang-switcher {
+            display: none !important;
+          }
+        }
+      `;
+      
+      // Remove existing fix if present and inject new one
+      const existing = document.getElementById('zappy-mobile-nav-fix');
+      if (existing) existing.remove();
+      document.head.appendChild(criticalCSS);
+      
+      console.log('[Navbar] Critical CSS injected for mobile nav positioning');
+      
+      // ONLY apply inline positioning styles on mobile viewport
+      // On desktop, the CSS handles hiding these buttons with display: none
+      // Inline styles were breaking desktop layout by overriding CSS
+      const isMobileViewport = window.innerWidth <= 768;
+      
+      if (mobileToggle) {
+        // Icon sizing applies to all viewports for consistency
+        const hamburgerIcon = mobileToggle.querySelector('.hamburger-icon');
+        const closeIcon = mobileToggle.querySelector('.close-icon');
+        
+        if (hamburgerIcon) {
+          hamburgerIcon.style.setProperty('width', '24px', 'important');
+          hamburgerIcon.style.setProperty('height', '24px', 'important');
+          hamburgerIcon.style.setProperty('display', 'block', 'important'); // Show hamburger by default
+        }
+        if (closeIcon) {
+          closeIcon.style.setProperty('width', '24px', 'important');
+          closeIcon.style.setProperty('height', '24px', 'important');
+          closeIcon.style.setProperty('display', 'none', 'important'); // Hide close icon by default
+        }
+        
+        // ONLY set positioning inline styles on mobile
+        if (isMobileViewport) {
+          mobileToggle.style.setProperty('position', 'absolute', 'important');
+          mobileToggle.style.setProperty('top', '0', 'important');
+          mobileToggle.style.setProperty('bottom', '0', 'important');
+          mobileToggle.style.setProperty('margin-top', 'auto', 'important');
+          mobileToggle.style.setProperty('margin-bottom', 'auto', 'important');
+          mobileToggle.style.setProperty('transform', 'none', 'important');
+          mobileToggle.style.setProperty('z-index', '1001', 'important');
+          
+          // Clear any inline left/right so CSS can take over based on html[dir]
+          mobileToggle.style.removeProperty('left');
+          mobileToggle.style.removeProperty('right');
+          
+          console.log('[Navbar] Mobile toggle positioning applied (mobile viewport)');
+        } else {
+          // On desktop, clear any positioning styles to let CSS handle it
+          mobileToggle.style.removeProperty('position');
+          mobileToggle.style.removeProperty('top');
+          mobileToggle.style.removeProperty('transform');
+          mobileToggle.style.removeProperty('z-index');
+          mobileToggle.style.removeProperty('left');
+          mobileToggle.style.removeProperty('right');
+          console.log('[Navbar] Desktop viewport - cleared mobile toggle inline positioning');
+        }
+      }
+      
+      if (phoneBtn) {
+        // Icon sizing applies to all viewports
+        const phoneIcon = phoneBtn.querySelector('svg');
+        if (phoneIcon) {
+          phoneIcon.style.width = '24px';
+          phoneIcon.style.height = '24px';
+          phoneIcon.setAttribute('width', '24');
+          phoneIcon.setAttribute('height', '24');
+        }
+        
+        // ONLY set positioning inline styles on mobile
+        if (isMobileViewport) {
+          phoneBtn.style.setProperty('position', 'absolute', 'important');
+          phoneBtn.style.setProperty('top', '0', 'important');
+          phoneBtn.style.setProperty('bottom', '0', 'important');
+          phoneBtn.style.setProperty('margin-top', 'auto', 'important');
+          phoneBtn.style.setProperty('margin-bottom', 'auto', 'important');
+          phoneBtn.style.setProperty('transform', 'none', 'important');
+          phoneBtn.style.setProperty('z-index', '1001', 'important');
+          
+          // Clear any inline left/right so CSS can take over based on html[dir]
+          phoneBtn.style.removeProperty('left');
+          phoneBtn.style.removeProperty('right');
+          
+          console.log('[Navbar] Phone button positioning applied (mobile viewport)');
+        } else {
+          // On desktop, clear any positioning styles to let CSS handle it
+          phoneBtn.style.removeProperty('position');
+          phoneBtn.style.removeProperty('top');
+          phoneBtn.style.removeProperty('transform');
+          phoneBtn.style.removeProperty('z-index');
+          phoneBtn.style.removeProperty('left');
+          phoneBtn.style.removeProperty('right');
+          console.log('[Navbar] Desktop viewport - cleared phone button inline positioning');
+        }
+      }
+    } else {
+      console.log('[Navbar] Could not parse background color:', bgColor);
+    }
+    
+    // MOBILE MENU TOGGLE
+    // Re-query in case DOM changed (mobileToggle already declared at top of function)
+    mobileToggle = document.getElementById('mobileToggle') ||
+                   document.querySelector('.mobile-toggle') ||
+                   document.querySelector('.hamburger') ||
+                   document.querySelector('.hamburger-menu') ||
+                   document.querySelector('.menu-toggle') ||
+                   document.querySelector('.burger-menu') ||
+                   document.querySelector('[aria-label="Menu"]') ||
+                   document.querySelector('[aria-label="תפריט"]');
+    
+    // EXPANDED SEARCH: Find nav menu by ID or class
+    const navMenu = document.getElementById('navMenu') ||
+                  document.querySelector('.nav-menu') ||
+                  document.querySelector('.nav-links') ||
+                  document.querySelector('nav ul:not(.submenu)');
+    
+    if (!mobileToggle || !navMenu) {
+      console.log('[Navbar] Mobile toggle or menu not found:', { toggle: !!mobileToggle, menu: !!navMenu });
+      return;
+    }
+    
+    // Ensure navMenu has ID for CSS targeting
+    if (!navMenu.id) {
+      navMenu.id = 'navMenu';
+    }
+    
+    console.log('[Navbar] Initializing mobile menu...');
+    
+    // Remove any existing event listeners by cloning the button
+    const newToggle = mobileToggle.cloneNode(true);
+    mobileToggle.parentNode.replaceChild(newToggle, mobileToggle);
+    
+    // Toggle menu handler (shared by click and touchend)
+    function handleToggle(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      
+      const hamburgerIcon = newToggle.querySelector('.hamburger-icon');
+      const closeIcon = newToggle.querySelector('.close-icon');
+      const isActive = navMenu.classList.contains('active');
+      
+      if (isActive) {
+        // Close menu
+        navMenu.classList.remove('active');
+        if (hamburgerIcon) hamburgerIcon.style.setProperty('display', 'block', 'important');
+        if (closeIcon) closeIcon.style.setProperty('display', 'none', 'important');
+        document.body.style.overflow = '';
+        console.log('[Navbar] Menu closed');
+      } else {
+        // Open menu
+        navMenu.classList.add('active');
+        if (hamburgerIcon) hamburgerIcon.style.setProperty('display', 'none', 'important');
+        if (closeIcon) closeIcon.style.setProperty('display', 'block', 'important');
+        document.body.style.overflow = 'hidden';
+        console.log('[Navbar] Menu opened');
+      }
+    }
+    
+    // Use click for desktop/emulation and touchend as iOS Safari fallback.
+    // Prevent double-fire with a timestamp guard.
+    var lastToggleTime = 0;
+    function guardedToggle(e) {
+      var now = Date.now();
+      if (now - lastToggleTime < 300) return;
+      lastToggleTime = now;
+      handleToggle(e);
+    }
+    
+    newToggle.addEventListener('click', guardedToggle);
+    newToggle.addEventListener('touchend', guardedToggle);
+    
+    // Close menu when clicking nav links (but NOT dropdown toggles)
+    const navLinks = navMenu.querySelectorAll('a');
+    navLinks.forEach(function(link) {
+      link.addEventListener('click', function() {
+        // Don't close if it's a dropdown child (unless it's a real navigation link)
+        if (this.getAttribute('href') === '#') return;
+        
+        const hamburgerIcon = newToggle.querySelector('.hamburger-icon');
+        const closeIcon = newToggle.querySelector('.close-icon');
+        
+        navMenu.classList.remove('active');
+        if (hamburgerIcon) hamburgerIcon.style.setProperty('display', 'block', 'important');
+        if (closeIcon) closeIcon.style.setProperty('display', 'none', 'important');
+        document.body.style.overflow = '';
+        console.log('[Navbar] Menu closed (link clicked)');
+      });
+    });
+    
+    // DROPDOWN MENU TOGGLE (for mobile and touch devices)
+    var dropdownToggles = navMenu.querySelectorAll('.dropdown-toggle');
+    dropdownToggles.forEach(function(toggle) {
+      toggle.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var parent = this.closest('.nav-dropdown');
+        if (!parent) return;
+        
+        // Close other open dropdowns at the same level
+        var siblings = parent.parentNode.querySelectorAll('.nav-dropdown.open');
+        siblings.forEach(function(sib) {
+          if (sib !== parent) sib.classList.remove('open');
+        });
+        
+        parent.classList.toggle('open');
+        console.log('[Navbar] Dropdown toggled:', parent.classList.contains('open') ? 'open' : 'closed');
+      });
+    });
+    
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.nav-dropdown')) {
+        var openDropdowns = document.querySelectorAll('.nav-dropdown.open');
+        openDropdowns.forEach(function(dd) { dd.classList.remove('open'); });
+      }
+    });
+    
+    console.log('[Navbar] Dropdown handlers initialized for ' + dropdownToggles.length + ' dropdowns');
+    
+    // Phone button functionality (phoneBtn already declared at top of function)
+    if (phoneBtn) {
+      phoneBtn.addEventListener('click', function() {
+        // Get phone number from placeholder in page or use default
+        const phoneLinks = document.querySelectorAll('a[href^="tel:"]');
+        const phoneNumber = phoneLinks.length > 0 
+          ? phoneLinks[0].getAttribute('href').replace('tel:', '')
+          : '[business_phone]';
+        
+        window.location.href = 'tel:' + phoneNumber;
+        console.log('[Navbar] Phone button clicked');
+      });
+    }
+    
+    console.log('[Navbar] Mobile menu initialized successfully');
+    
+    // WhatsApp button visibility is now controlled via CSS (siteSettings).
+    // No JS-based desktop hiding — the button is visible on both mobile and desktop by default.
+  });
+})();
+
+</script>
+  
+  <main id="main">
+    <section data-band-index="0" class="home-hero-section" data-layout-spec="Home-hero" data-hero-type="fullscreen-scrim">
+  <!-- Background image layer -->
+  <div class="home-hero-bg">
+    <img loading="eager" fetchpriority="high" data-hero-bg="true" data-placeholder="home-hero-image-1" data-context="Cinematic wide-angle composite of a classical stone courthouse facade with tall Corinthian columns bathed in warm late-afternoon light, blended with a refined professional office interior featuring dark wood paneling, polished surfaces, and metallic navy tones. The overall mood is institutional authority, financial trust, and legal gravitas. Color palette: deep navy blues, warm stone grays, subtle gold accents. Horizontal landscape format, no people, architectural and atmospheric." width="1440" height="810" src="/assets/site-home-hero-image-1.webp" alt="Classical courthouse and professional office representing financial recovery authority">
+  </div>
+
+  <!-- Scrim overlay -->
+  <div class="home-hero-scrim" aria-hidden="true"></div>
+
+  <!-- Decorative: laurel wreath SVG (top-right) -->
+  <svg class="home-hero-laurel" data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 420 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Left laurel branch -->
+    <path d="M130,120 C110,100 90,85 70,78 C85,90 95,108 100,122" stroke="#C9A84C" stroke-width="1.2" fill="none" opacity="0.55"></path>
+    <path d="M125,115 C105,88 88,68 65,58 C82,72 94,95 98,112" stroke="#C9A84C" stroke-width="1" fill="none" opacity="0.45"></path>
+    <path d="M120,110 C102,78 88,55 62,42 C80,58 93,82 96,102" stroke="#C9A84C" stroke-width="0.9" fill="none" opacity="0.38"></path>
+    <ellipse cx="75" cy="76" rx="14" ry="8" transform="rotate(-30 75 76)" stroke="#C9A84C" stroke-width="1" fill="none" opacity="0.45"></ellipse>
+    <ellipse cx="68" cy="60" rx="12" ry="7" transform="rotate(-40 68 60)" stroke="#C9A84C" stroke-width="1" fill="none" opacity="0.38"></ellipse>
+    <ellipse cx="64" cy="44" rx="11" ry="6" transform="rotate(-50 64 44)" stroke="#C9A84C" stroke-width="0.9" fill="none" opacity="0.32"></ellipse>
+    <!-- Right laurel branch (mirrored) -->
+    <path d="M290,120 C310,100 330,85 350,78 C335,90 325,108 320,122" stroke="#C9A84C" stroke-width="1.2" fill="none" opacity="0.55"></path>
+    <path d="M295,115 C315,88 332,68 355,58 C338,72 326,95 322,112" stroke="#C9A84C" stroke-width="1" fill="none" opacity="0.45"></path>
+    <path d="M300,110 C318,78 332,55 358,42 C340,58 327,82 324,102" stroke="#C9A84C" stroke-width="0.9" fill="none" opacity="0.38"></path>
+    <ellipse cx="345" cy="76" rx="14" ry="8" transform="rotate(30 345 76)" stroke="#C9A84C" stroke-width="1" fill="none" opacity="0.45"></ellipse>
+    <ellipse cx="352" cy="60" rx="12" ry="7" transform="rotate(40 352 60)" stroke="#C9A84C" stroke-width="1" fill="none" opacity="0.38"></ellipse>
+    <ellipse cx="356" cy="44" rx="11" ry="6" transform="rotate(50 356 44)" stroke="#C9A84C" stroke-width="0.9" fill="none" opacity="0.32"></ellipse>
+    <!-- Central shield -->
+    <path d="M210,60 L228,68 L228,90 C228,102 210,112 210,112 C210,112 192,102 192,90 L192,68 Z" stroke="#C9A84C" stroke-width="1.2" fill="none" opacity="0.5"></path>
+    <path d="M210,70 L222,76 L222,91 C222,100 210,108 210,108 C210,108 198,100 198,91 L198,76 Z" stroke="#C9A84C" stroke-width="0.8" fill="none" opacity="0.35"></path>
+    <!-- Star accent at center -->
+    <polygon points="210,78 212,84 218,84 213,88 215,94 210,90 205,94 207,88 202,84 208,84" stroke="#C9A84C" stroke-width="0.8" fill="none" opacity="0.45"></polygon>
+  </svg>
+
+  <!-- Decorative: courthouse column silhouettes (right side) -->
+  <svg class="home-hero-columns" data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 300 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect x="20" y="0" width="28" height="580" fill="#1E3A5F" opacity="0.12"></rect>
+    <rect x="20" y="0" width="28" height="12" rx="2" fill="#1E3A5F" opacity="0.15"></rect>
+    <rect x="20" y="568" width="28" height="12" rx="2" fill="#1E3A5F" opacity="0.15"></rect>
+    <rect x="80" y="0" width="28" height="580" fill="#1E3A5F" opacity="0.1"></rect>
+    <rect x="80" y="0" width="28" height="12" rx="2" fill="#1E3A5F" opacity="0.13"></rect>
+    <rect x="80" y="568" width="28" height="12" rx="2" fill="#1E3A5F" opacity="0.13"></rect>
+    <rect x="150" y="0" width="28" height="580" fill="#1E3A5F" opacity="0.09"></rect>
+    <rect x="150" y="0" width="28" height="12" rx="2" fill="#1E3A5F" opacity="0.11"></rect>
+    <rect x="150" y="568" width="28" height="12" rx="2" fill="#1E3A5F" opacity="0.11"></rect>
+    <rect x="220" y="0" width="28" height="580" fill="#1E3A5F" opacity="0.08"></rect>
+    <rect x="220" y="0" width="28" height="12" rx="2" fill="#1E3A5F" opacity="0.1"></rect>
+    <rect x="220" y="568" width="28" height="12" rx="2" fill="#1E3A5F" opacity="0.1"></rect>
+  </svg>
+
+  <!-- Main content overlay -->
+  <div class="home-hero-content-wrapper">
+    <div class="home-hero-container">
+      <div class="home-hero-overlay-group">
+
+        <!-- Gold rule motif above headline -->
+        <div class="home-hero-rule-motif" aria-hidden="true">
+          <svg data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 160 16" fill="none" xmlns="http://www.w3.org/2000/svg" width="160" height="16">
+            <line x1="0" y1="8" x2="60" y2="8" stroke="#C9A84C" stroke-width="1" opacity="0.65"></line>
+            <polygon points="80,2 83,8 80,14 77,8" fill="none" stroke="#C9A84C" stroke-width="1" opacity="0.65"></polygon>
+            <circle cx="80" cy="8" r="2" fill="#C9A84C" opacity="0.65"></circle>
+            <line x1="100" y1="8" x2="160" y2="8" stroke="#C9A84C" stroke-width="1" opacity="0.65"></line>
+          </svg>
+        </div>
+
+        <!-- Eyebrow label -->
+        <p class="home-hero-eyebrow">Surplus Fund Recovery — Nationwide</p>
+
+        <!-- H1 -->
+        <h1 class="home-hero-h1">You May Be Owed<br>Surplus Funds</h1>
+
+        <!-- Supporting H3 -->
+        <h3 class="home-hero-subtitle">When a property is sold through foreclosure, a tax sale, or public auction, the proceeds may exceed what was owed — leaving a balance that could be yours to reclaim.</h3>
+
+        <!-- CTA buttons -->
+        <div class="home-hero-ctas">
+          <a href="/start-claim" class="home-hero-btn-primary">
+            <span>Check My Eligibility</span>
+            <svg data-element-type="icon" data-icon-type="svg" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+          </a>
+          <a href="/process" class="home-hero-btn-secondary">
+            <span>See How It Works</span>
+          </a>
+        </div>
+
+        <!-- Reassurance strip -->
+        <div class="home-hero-reassurance">
+          <span class="home-hero-reassurance-item">
+            <svg data-element-type="icon" data-icon-type="svg" width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M8 2L9.5 6H14L10.5 8.5L12 13L8 10.5L4 13L5.5 8.5L2 6H6.5Z" stroke="currentColor" stroke-width="1.4" fill="none" stroke-linejoin="round"></path>
+            </svg>
+            No upfront fees
+          </span>
+          <span class="home-hero-reassurance-sep" aria-hidden="true">•</span>
+          <span class="home-hero-reassurance-item">
+            <svg data-element-type="icon" data-icon-type="svg" width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <rect x="3" y="3" width="10" height="12" rx="1.5" stroke="currentColor" stroke-width="1.4" fill="none"></rect>
+              <path d="M6 7h4M6 10h3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"></path>
+            </svg>
+            Confidential review
+          </span>
+          <span class="home-hero-reassurance-sep" aria-hidden="true">•</span>
+          <span class="home-hero-reassurance-item">
+            <svg data-element-type="icon" data-icon-type="svg" width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M8 2l1.5 4H14l-3.5 2.5L12 13 8 10.5 4 13l1.5-4.5L2 6h4.5Z" stroke="currentColor" stroke-width="1.4" fill="none" stroke-linejoin="round"></path>
+              <path d="M5 8.5L7 10.5L11 6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+            No obligation to proceed
+          </span>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom wave divider transitioning to light section -->
+  <div class="home-hero-divider-wrapper">
+    <svg data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 1440 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,80 L0,44 Q120,28 240,40 T480,32 Q600,26 720,38 T960,30 Q1080,24 1200,36 T1440,28 L1440,80 Z" fill="#F2F4F7"></path>
+    </svg>
+  </div>
+</section>
+
+<section data-band-index="1" class="home-overview-section" data-layout-spec="Home-overview">
+
+  <!-- Decorative gold horizontal rule motif -->
+  <div class="overview-deco-rule" aria-hidden="true">
+    <svg data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 160 12" fill="none" xmlns="http://www.w3.org/2000/svg" width="160" height="12">
+      <line x1="0" y1="6" x2="60" y2="6" stroke="#C9A84C" stroke-width="1" stroke-opacity="0.55"></line>
+      <polygon points="72,2 76,6 72,10 68,6" fill="#C9A84C" fill-opacity="0.6"></polygon>
+      <polygon points="88,3 92,6 88,9 84,6" fill="#C9A84C" fill-opacity="0.35"></polygon>
+      <polygon points="80,1 84,6 80,11 76,6" fill="#C9A84C" fill-opacity="0.6"></polygon>
+      <line x1="100" y1="6" x2="160" y2="6" stroke="#C9A84C" stroke-width="1" stroke-opacity="0.55"></line>
+    </svg>
+  </div>
+
+  <div class="overview-container">
+
+    <!-- Centered Intro Block -->
+    <div class="overview-intro">
+      <p class="overview-eyebrow">Understanding Your Rights</p>
+      <h2 class="overview-heading">What Are Surplus Funds?</h2>
+      <div class="overview-heading-rule" aria-hidden="true"></div>
+      <p class="overview-lead">Surplus funds may arise when a property is sold through foreclosure, tax sale, or a similar public auction process, and the final sale price exceeds the total amount owed on the property. As part of our financial recovery services, we help former owners identify and reclaim these funds.</p>
+    </div>
+
+    <!-- Two-Column Composition -->
+    <div class="overview-columns">
+
+      <!-- START: Explanatory Text + Image -->
+      <div class="overview-text-col">
+        <p class="overview-body">When a property is sold through a tax sale, foreclosure, or similar public process, the remaining balance — after all liens, taxes, fees, and other obligations are satisfied — is generally referred to as surplus funds or overage funds. These amounts are held through county-specific procedures and may be available for review by former owners or related parties.</p>
+        <p class="overview-body">The availability, amount, and eligibility for surplus funds are determined through public records and county-specific legal requirements. Many former property owners are unaware these funds exist or that they may have a valid claim. Our role is to identify, review, and guide eligible claimants through every step of the recovery process — at no upfront cost.</p>
+        <figure class="overview-image-figure">
+          <img loading="lazy" decoding="async" data-placeholder="home-overview-image-1" data-context="A polished, professional photograph of a formal financial document or legal ledger on a clean desk, with a pen, a small gavel, and county courthouse architecture visible softly in the background — evoking surplus fund recovery, legal authority, and financial clarity for a North Carolina financial recovery services firm." width="560" height="340" src="/assets/site-home-overview-image-1.webp" alt="Financial recovery documents representing surplus fund claims" class="overview-image">
+        </figure>
+      </div>
+
+      <!-- END: Premium Ledger Card -->
+      <div class="overview-ledger-col">
+        <div class="overview-ledger-card">
+          <div class="ledger-header">
+            <div class="ledger-badge" aria-hidden="true">
+              <svg data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 24 24" width="18" height="18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2L14.5 9H22L16 13.5L18.5 20.5L12 16L5.5 20.5L8 13.5L2 9H9.5L12 2Z" fill="#4B76BE" fill-opacity="0.25" stroke="#4B76BE" stroke-width="1.2"></path>
+              </svg>
+            </div>
+            <div class="ledger-header-text">
+              <p class="ledger-label">Example Scenario</p>
+              <h3 class="ledger-title">Surplus Funds Calculation</h3>
+            </div>
+          </div>
+          <div class="ledger-divider" aria-hidden="true"></div>
+          <p class="ledger-scenario-note">If a property has $15,000 owed in back taxes and is sold for $300,000:</p>
+          <div class="ledger-rows">
+            <div class="ledger-row">
+              <span class="ledger-row-label">Sale Price</span>
+              <span class="ledger-row-value ledger-value-neutral">$300,000</span>
+            </div>
+            <div class="ledger-row ledger-row-deduction">
+              <span class="ledger-row-label">Amount Owed<small class="ledger-row-sublabel">(taxes, liens, fees &amp; obligations)</small></span>
+              <span class="ledger-row-value ledger-value-deduct">−&nbsp;$15,000</span>
+            </div>
+            <div class="ledger-divider ledger-divider-thin" aria-hidden="true"></div>
+            <div class="ledger-row ledger-row-surplus">
+              <span class="ledger-row-label ledger-surplus-label">Surplus Funds</span>
+              <span class="ledger-row-value ledger-value-surplus">$285,000</span>
+            </div>
+          </div>
+          <div class="ledger-divider" aria-hidden="true"></div>
+          <p class="ledger-legal-note">
+            <svg data-element-type="icon" data-icon-type="svg" aria-hidden="true" viewBox="0 0 16 16" width="13" height="13" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:inline-block;vertical-align:middle;margin-right:5px;flex-shrink:0;"><circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.2"></circle><line x1="8" y1="7" x2="8" y2="11" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"></line><circle cx="8" cy="5" r="0.8" fill="currentColor"></circle></svg>
+            The above is a simplified illustrative example. Actual surplus fund amounts, eligibility, and procedures are determined by public records and applicable county and state regulations.
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Trust Points Strip -->
+    <div class="overview-trust-strip">
+
+      <div class="trust-item">
+        <div class="trust-icon-wrap" aria-hidden="true">
+          <svg data-element-type="icon" data-icon-type="svg" viewBox="0 0 32 32" width="32" height="32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="4" y="6" width="24" height="20" rx="2" stroke="currentColor" stroke-width="1.5"></rect>
+            <line x1="9" y1="12" x2="23" y2="12" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"></line>
+            <line x1="9" y1="16" x2="19" y2="16" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"></line>
+            <line x1="9" y1="20" x2="21" y2="20" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"></line>
+          </svg>
+        </div>
+        <div class="trust-content">
+          <p class="trust-title">Public-Record Review</p>
+          <p class="trust-desc">We analyze publicly available county records to identify potential surplus funds associated with your property.</p>
+        </div>
+      </div>
+
+      <div class="trust-divider" aria-hidden="true"></div>
+
+      <div class="trust-item">
+        <div class="trust-icon-wrap" aria-hidden="true">
+          <svg data-element-type="icon" data-icon-type="svg" viewBox="0 0 32 32" width="32" height="32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M16 4L28 9V17C28 23 22 28 16 30C10 28 4 23 4 17V9L16 4Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"></path>
+            <polyline points="11,16 14.5,19.5 21,13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></polyline>
+          </svg>
+        </div>
+        <div class="trust-content">
+          <p class="trust-title">County-Specific Procedures</p>
+          <p class="trust-desc">Every county has distinct legal requirements. Our team navigates jurisdiction-specific processes on your behalf.</p>
+        </div>
+      </div>
+
+      <div class="trust-divider" aria-hidden="true"></div>
+
+      <div class="trust-item">
+        <div class="trust-icon-wrap" aria-hidden="true">
+          <svg data-element-type="icon" data-icon-type="svg" viewBox="0 0 32 32" width="32" height="32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="16" cy="16" r="12" stroke="currentColor" stroke-width="1.5"></circle>
+            <path d="M16 10V16L20 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+            <line x1="10" y1="8" x2="8" y2="6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"></line>
+            <line x1="22" y1="8" x2="24" y2="6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"></line>
+            <path d="M11 27L9 30M21 27L23 30" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" opacity="0.5"></path>
+          </svg>
+        </div>
+        <div class="trust-content">
+          <p class="trust-title">No Upfront Fees</p>
+          <p class="trust-desc">We operate exclusively on a contingency basis — you pay nothing unless we successfully recover funds on your behalf.</p>
+        </div>
+      </div>
+
+      <div class="trust-divider" aria-hidden="true"></div>
+
+      <div class="trust-item">
+        <div class="trust-icon-wrap" aria-hidden="true">
+          <svg data-element-type="icon" data-icon-type="svg" viewBox="0 0 32 32" width="32" height="32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="7" y="14" width="18" height="13" rx="2" stroke="currentColor" stroke-width="1.5"></rect>
+            <path d="M11 14V10C11 7.8 12.8 6 16 6C19.2 6 21 7.8 21 10V14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
+            <circle cx="16" cy="20.5" r="1.5" fill="currentColor"></circle>
+          </svg>
+        </div>
+        <div class="trust-content">
+          <p class="trust-title">Confidential Review</p>
+          <p class="trust-desc">All claim reviews are handled with complete discretion. Your personal and financial information remains strictly confidential.</p>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Bottom Divider: embossed crest band curving into dark section -->
+  <div class="overview-divider-wrapper" aria-hidden="true">
+    <svg data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 1200 70" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,70 L0,38 Q150,22 300,34 T600,20 Q750,10 900,28 T1200,22 L1200,70 Z" fill="#0D1B33"></path>
+    </svg>
+  </div>
+
+</section>
+
+<section data-band-index="2" class="home-process-section" data-layout-spec="Home-process">
+  <!-- Decorative background motif -->
+  <div class="home-process-section__bg-motif" aria-hidden="true">
+    <svg data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 600 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="300" cy="250" rx="280" ry="240" stroke="rgba(197,199,204,0.06)" stroke-width="1"></ellipse>
+      <ellipse cx="300" cy="250" rx="200" ry="170" stroke="rgba(197,199,204,0.05)" stroke-width="1"></ellipse>
+      <path d="M300 30 L320 90 L385 90 L335 128 L355 190 L300 152 L245 190 L265 128 L215 90 L280 90 Z" stroke="rgba(197,199,204,0.07)" stroke-width="1" fill="none"></path>
+    </svg>
+  </div>
+
+  <div class="home-process-section__container">
+
+    <!-- Section Header -->
+    <header class="home-process-section__header">
+      <p class="home-process-section__eyebrow">Our Financial Recovery Services</p>
+      <h2 class="home-process-section__title">How the Recovery Process Works</h2>
+      <div class="home-process-section__title-rule" aria-hidden="true">
+        <span class="home-process-section__rule-line"></span>
+        <svg data-no-icon-edit="true" aria-hidden="true" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M6 0L7.5 4.5L12 6L7.5 7.5L6 12L4.5 7.5L0 6L4.5 4.5Z" fill="rgba(197,199,204,0.55)"></path>
+        </svg>
+        <span class="home-process-section__rule-line"></span>
+      </div>
+      <p class="home-process-section__subtitle">A clear, guided path from discovery to disbursement — at no upfront cost to you.</p>
+    </header>
+
+    <!-- Four-Step Timeline -->
+    <div class="home-process-section__timeline">
+
+      <!-- Connector line (desktop only) -->
+      <div class="home-process-section__connector" aria-hidden="true"></div>
+
+      <!-- Step 1 -->
+      <article class="home-process-section__step">
+        <div class="home-process-section__step-silver-rule" aria-hidden="true"></div>
+        <div class="home-process-section__step-header">
+          <span class="home-process-section__step-number">01</span>
+          <div class="home-process-section__step-icon" aria-hidden="true">
+            <svg data-element-type="icon" data-icon-type="svg" width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="1.5"></circle>
+              <path d="M18 18L23 23" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
+              <path d="M9 12H15M12 9V15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
+            </svg>
+          </div>
+        </div>
+        <h3 class="home-process-section__step-title">Research &amp; Identification</h3>
+        <p class="home-process-section__step-desc">We conduct a thorough review of publicly available county records, auction outcomes, and foreclosure filings to identify surplus funds associated with your former property. If a recoverable balance is located, we contact you directly.</p>
+      </article>
+
+      <!-- Step 2 -->
+      <article class="home-process-section__step">
+        <div class="home-process-section__step-silver-rule" aria-hidden="true"></div>
+        <div class="home-process-section__step-header">
+          <span class="home-process-section__step-number">02</span>
+          <div class="home-process-section__step-icon" aria-hidden="true">
+            <svg data-element-type="icon" data-icon-type="svg" width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="4" y="3" width="16" height="20" rx="1.5" stroke="currentColor" stroke-width="1.5"></rect>
+              <path d="M8 8H16M8 12H16M8 16H12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
+              <path d="M18 17L20 19L24 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+          </div>
+        </div>
+        <h3 class="home-process-section__step-title">Claim Preparation &amp; Filing</h3>
+        <p class="home-process-section__step-desc">Your dedicated recovery specialist prepares all required documentation and executes the formal claim on your behalf. We handle every form, affidavit, and supporting record required by the applicable county or state authority.</p>
+      </article>
+
+      <!-- Step 3 -->
+      <article class="home-process-section__step">
+        <div class="home-process-section__step-silver-rule" aria-hidden="true"></div>
+        <div class="home-process-section__step-header">
+          <span class="home-process-section__step-number">03</span>
+          <div class="home-process-section__step-icon" aria-hidden="true">
+            <svg data-element-type="icon" data-icon-type="svg" width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M14 4L18 8H22V22H6V8H10L14 4Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"></path>
+              <path d="M10 14H18M10 18H15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
+              <path d="M10 8H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
+            </svg>
+          </div>
+        </div>
+        <h3 class="home-process-section__step-title">Agency &amp; Court Coordination</h3>
+        <p class="home-process-section__step-desc">We liaise directly with the relevant government agencies, county clerks, and court offices to advance your claim through the legal process. Our team monitors status, responds to requests, and ensures nothing falls through the cracks.</p>
+      </article>
+
+      <!-- Step 4 -->
+      <article class="home-process-section__step">
+        <div class="home-process-section__step-silver-rule" aria-hidden="true"></div>
+        <div class="home-process-section__step-header">
+          <span class="home-process-section__step-number">04</span>
+          <div class="home-process-section__step-icon" aria-hidden="true">
+            <svg data-element-type="icon" data-icon-type="svg" width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="4" y="10" width="20" height="14" rx="1.5" stroke="currentColor" stroke-width="1.5"></rect>
+              <path d="M9 10V7C9 4.79 11.24 3 14 3C16.76 3 19 4.79 19 7V10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
+              <circle cx="14" cy="17" r="2.5" stroke="currentColor" stroke-width="1.5"></circle>
+            </svg>
+          </div>
+        </div>
+        <h3 class="home-process-section__step-title">Funds Disbursement</h3>
+        <p class="home-process-section__step-desc">Once approved, surplus funds are released and disbursed to you per the terms of your signed recovery agreement. Our fee is collected only upon successful recovery — you pay nothing unless we deliver results.</p>
+      </article>
+
+    </div><!-- /.timeline -->
+
+    <!-- Supporting Trust Assurances -->
+    <div class="home-process-section__assurances">
+      <div class="home-process-section__assurance-rule" aria-hidden="true"></div>
+      <ul class="home-process-section__assurance-list">
+        <li class="home-process-section__assurance-item">
+          <svg data-element-type="icon" data-icon-type="svg" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M3 8L6.5 11.5L13 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+          <span>No Upfront Fees</span>
+        </li>
+        <li class="home-process-section__assurance-item">
+          <svg data-element-type="icon" data-icon-type="svg" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M3 8L6.5 11.5L13 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+          <span>Confidential Process</span>
+        </li>
+        <li class="home-process-section__assurance-item">
+          <svg data-element-type="icon" data-icon-type="svg" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M3 8L6.5 11.5L13 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+          <span>Nationwide Service</span>
+        </li>
+        <li class="home-process-section__assurance-item">
+          <svg data-element-type="icon" data-icon-type="svg" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M3 8L6.5 11.5L13 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+          <span>Contingency-Based Payment</span>
+        </li>
+      </ul>
+    </div>
+
+  </div><!-- /.container -->
+
+  <!-- Bottom Divider: navy to light -->
+  <div class="home-process-section__divider-wrapper">
+    <svg data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 1440 90" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,90 L0,52 Q120,38 240,50 T480,44 Q600,36 720,48 T960,42 Q1080,34 1200,46 T1440,40 L1440,90 Z" fill="#F2F4F7"></path>
+    </svg>
+  </div>
+
+</section>
+
+<section data-band-index="3" class="home-testimonials-section" data-layout-spec="Home-testimonials">
+  <div class="home-testimonials-container">
+
+    <!-- Intro Block -->
+    <div class="home-testimonials-intro">
+      <p class="home-testimonials-eyebrow">Client Experiences</p>
+      <h2 class="home-testimonials-heading">What Our Clients Say</h2>
+      <div class="home-testimonials-rule">
+        <svg data-no-icon-edit="true" aria-hidden="true" width="120" height="16" viewBox="0 0 120 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <line x1="0" y1="8" x2="52" y2="8" stroke="#C5C7CC" stroke-width="1"></line>
+          <polygon points="60,2 63,8 60,14 57,8" fill="#C5C7CC"></polygon>
+          <line x1="68" y1="8" x2="120" y2="8" stroke="#C5C7CC" stroke-width="1"></line>
+        </svg>
+      </div>
+      <p class="home-testimonials-subtext">The following accounts reflect real experiences shared by former property owners who worked with Piedmont Triad Equity Solutions through our financial recovery services. Each situation is unique, and we are honored to have guided these clients through the surplus fund recovery process.</p>
+    </div>
+
+    <!-- 2x3 Testimonial Grid -->
+    <div class="home-testimonials-grid">
+
+      <!-- Card 1 -->
+      <article class="home-testimonials-card">
+        <div class="home-testimonials-card-top">
+          <span class="home-testimonials-quote-mark" aria-hidden="true">“</span>
+          <span class="home-testimonials-tag">Foreclosure Surplus</span>
+        </div>
+        <p class="home-testimonials-text">I had no idea there were funds waiting for me after my foreclosure. My recovery specialist walked me through every step and kept me informed the entire time. I never paid a dime upfront, and the outcome was beyond what I expected.</p>
+        <footer class="home-testimonials-card-footer">
+          <p class="home-testimonials-name">Margaret T.</p>
+          <p class="home-testimonials-meta">Greensboro, NC &nbsp;·&nbsp; 2023</p>
+        </footer>
+      </article>
+
+      <!-- Card 2 -->
+      <article class="home-testimonials-card">
+        <div class="home-testimonials-card-top">
+          <span class="home-testimonials-quote-mark" aria-hidden="true">“</span>
+          <span class="home-testimonials-tag">Tax Sale Surplus</span>
+        </div>
+        <p class="home-testimonials-text">After a tax sale on a property I had owned for years, I assumed any remaining value was simply gone. Piedmont Triad Equity Solutions identified a surplus I was entitled to review and handled the entire claim process professionally and confidentially.</p>
+        <footer class="home-testimonials-card-footer">
+          <p class="home-testimonials-name">Robert L.</p>
+          <p class="home-testimonials-meta">Winston-Salem, NC &nbsp;·&nbsp; 2022</p>
+        </footer>
+      </article>
+
+      <!-- Card 3 -->
+      <article class="home-testimonials-card">
+        <div class="home-testimonials-card-top">
+          <span class="home-testimonials-quote-mark" aria-hidden="true">“</span>
+          <span class="home-testimonials-tag">Sheriff's Sale Surplus</span>
+        </div>
+        <p class="home-testimonials-text">The process felt overwhelming at first, but having a dedicated specialist made all the difference. They explained each stage clearly, handled the paperwork, and there was never any pressure. I would recommend this firm to anyone in a similar situation.</p>
+        <footer class="home-testimonials-card-footer">
+          <p class="home-testimonials-name">Denise W.</p>
+          <p class="home-testimonials-meta">High Point, NC &nbsp;·&nbsp; 2023</p>
+        </footer>
+      </article>
+
+      <!-- Card 4 -->
+      <article class="home-testimonials-card">
+        <div class="home-testimonials-card-top">
+          <span class="home-testimonials-quote-mark" aria-hidden="true">“</span>
+          <span class="home-testimonials-tag">Court-Ordered Sale Surplus</span>
+        </div>
+        <p class="home-testimonials-text">Following a court-ordered sale, I was contacted by Piedmont Triad Equity Solutions about a potential surplus associated with my former property. The review was completely confidential, and I appreciated the transparent, no-obligation approach from the very beginning.</p>
+        <footer class="home-testimonials-card-footer">
+          <p class="home-testimonials-name">James H.</p>
+          <p class="home-testimonials-meta">Burlington, NC &nbsp;·&nbsp; 2022</p>
+        </footer>
+      </article>
+
+      <!-- Card 5 -->
+      <article class="home-testimonials-card">
+        <div class="home-testimonials-card-top">
+          <span class="home-testimonials-quote-mark" aria-hidden="true">“</span>
+          <span class="home-testimonials-tag">Foreclosure Surplus</span>
+        </div>
+        <p class="home-testimonials-text">I was skeptical at first — it sounded too good to be true. But everything was exactly as described. No upfront fees, a clear explanation of the process, and a team that genuinely cared about the outcome. I'm grateful I made the call.</p>
+        <footer class="home-testimonials-card-footer">
+          <p class="home-testimonials-name">Patricia M.</p>
+          <p class="home-testimonials-meta">Raleigh, NC &nbsp;·&nbsp; 2024</p>
+        </footer>
+      </article>
+
+      <!-- Card 6 -->
+      <article class="home-testimonials-card">
+        <div class="home-testimonials-card-top">
+          <span class="home-testimonials-quote-mark" aria-hidden="true">“</span>
+          <span class="home-testimonials-tag">Tax Sale Surplus</span>
+        </div>
+        <p class="home-testimonials-text">Working with Piedmont Triad Equity Solutions was a straightforward and dignified experience. They located surplus funds tied to a property I hadn't thought about in years. Their contingency model meant I had nothing to lose by letting them review my case.</p>
+        <footer class="home-testimonials-card-footer">
+          <p class="home-testimonials-name">Calvin R.</p>
+          <p class="home-testimonials-meta">Durham, NC &nbsp;·&nbsp; 2023</p>
+        </footer>
+      </article>
+
+    </div>
+
+    <!-- Compliance Note + CTA Row -->
+    <div class="home-testimonials-footer-row">
+      <p class="home-testimonials-disclaimer"><em>Testimonials reflect individual client experiences and are shared with permission. Results vary based on case-specific circumstances. Surplus fund availability, eligibility, and recovery amounts are determined by public records and county-specific procedures. Results are not guaranteed.</em></p>
+      <a href="/results" class="home-testimonials-cta-link">View more client stories <span aria-hidden="true">→</span></a>
+    </div>
+
+  </div>
+
+  <!-- Bottom Divider: navy gradient rise with star specks -->
+  <div class="home-testimonials-divider-wrapper" aria-hidden="true">
+    <svg data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 1200 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="ht-divider-grad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#10213F" stop-opacity="0"></stop>
+          <stop offset="100%" stop-color="#10213F" stop-opacity="1"></stop>
+        </linearGradient>
+      </defs>
+      <path d="M0,100 L0,55 Q150,38 300,50 T600,42 Q750,35 900,48 T1200,44 L1200,100 Z" fill="#0B1426"></path>
+      <path d="M0,100 L0,65 Q200,52 400,60 T800,54 Q1000,48 1200,58 L1200,100 Z" fill="#0B1426" opacity="0.6"></path>
+      <path d="M0,100 L0,78 Q300,68 600,74 T1200,70 L1200,100 Z" fill="#0B1426"></path>
+      <!-- Star specks -->
+      <circle cx="180" cy="60" r="1.2" fill="#C5C7CC" opacity="0.5"></circle>
+      <circle cx="340" cy="48" r="0.9" fill="#C5C7CC" opacity="0.4"></circle>
+      <circle cx="520" cy="55" r="1.4" fill="#C5C7CC" opacity="0.6"></circle>
+      <circle cx="680" cy="44" r="0.8" fill="#C5C7CC" opacity="0.35"></circle>
+      <circle cx="820" cy="52" r="1.1" fill="#C5C7CC" opacity="0.5"></circle>
+      <circle cx="960" cy="46" r="1.3" fill="#C5C7CC" opacity="0.45"></circle>
+      <circle cx="1080" cy="58" r="0.9" fill="#C5C7CC" opacity="0.4"></circle>
+      <circle cx="260" cy="70" r="0.7" fill="#C5C7CC" opacity="0.3"></circle>
+      <circle cx="750" cy="66" r="1.0" fill="#C5C7CC" opacity="0.35"></circle>
+      <circle cx="1140" cy="72" r="0.8" fill="#C5C7CC" opacity="0.3"></circle>
+    </svg>
+  </div>
+
+</section>
+
+<section data-band-index="4" class="home-cta-section" data-layout-spec="Home-cta">
+
+  <!-- Decorative background: faint shield outline -->
+  <svg class="home-cta-shield-bg" data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 320 380" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M160 12 L300 60 L300 190 C300 270 230 330 160 360 C90 330 20 270 20 190 L20 60 Z" stroke="rgba(197,199,204,0.12)" stroke-width="2" fill="none"></path>
+    <path d="M160 36 L278 78 L278 192 C278 260 216 312 160 338 C104 312 42 260 42 192 L42 78 Z" stroke="rgba(197,199,204,0.07)" stroke-width="1.5" fill="none"></path>
+    <line x1="80" y1="190" x2="240" y2="190" stroke="rgba(197,199,204,0.07)" stroke-width="1"></line>
+    <line x1="160" y1="80" x2="160" y2="300" stroke="rgba(197,199,204,0.07)" stroke-width="1"></line>
+  </svg>
+
+  <!-- Decorative background: silver wave lines -->
+  <svg class="home-cta-waves-bg" data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 1200 200" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,80 Q150,60 300,80 T600,80 T900,80 T1200,80" stroke="rgba(197,199,204,0.08)" stroke-width="1.5" fill="none"></path>
+    <path d="M0,110 Q150,90 300,110 T600,110 T900,110 T1200,110" stroke="rgba(197,199,204,0.06)" stroke-width="1" fill="none"></path>
+    <path d="M0,140 Q150,120 300,140 T600,140 T900,140 T1200,140" stroke="rgba(197,199,204,0.05)" stroke-width="1" fill="none"></path>
+  </svg>
+
+  <div class="home-cta-container">
+
+    <!-- Ornamental rule above heading -->
+    <div class="home-cta-ornament" aria-hidden="true">
+      <span class="home-cta-ornament-line"></span>
+      <svg data-no-icon-edit="true" viewBox="0 0 24 24" width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="12,2 14.5,9 22,9 16,14 18.5,21 12,17 5.5,21 8,14 2,9 9.5,9" stroke="rgba(197,199,204,0.55)" stroke-width="1.2" fill="none"></polygon>
+      </svg>
+      <span class="home-cta-ornament-line"></span>
+    </div>
+
+    <h2 class="home-cta-heading">Could Surplus Funds Be Associated<br class="home-cta-br"> With Your Property?</h2>
+
+    <p class="home-cta-subtext">The next step requires no financial commitment on your part — simply a quick review of publicly available records. Our financial recovery services team will check whether a surplus may be linked to your property and notify you of any findings at no cost and with no obligation to proceed.</p>
+
+    <!-- CTA buttons -->
+    <div class="home-cta-buttons">
+      <a href="/contact" class="home-cta-btn-primary">Start Your Claim</a>
+      <a href="/contact" class="home-cta-btn-secondary">Contact Us</a>
+    </div>
+
+    <!-- Divider rule -->
+    <div class="home-cta-rule" aria-hidden="true"></div>
+
+    <!-- Four expectation steps -->
+    <div class="home-cta-steps">
+
+      <div class="home-cta-step">
+        <div class="home-cta-step-number" aria-hidden="true">01</div>
+        <div class="home-cta-step-content">
+          <h3 class="home-cta-step-title">Public Record Review</h3>
+          <p class="home-cta-step-desc">We search publicly available county and court records related to your property at no cost to you.</p>
+        </div>
+      </div>
+
+      <div class="home-cta-step">
+        <div class="home-cta-step-number" aria-hidden="true">02</div>
+        <div class="home-cta-step-content">
+          <h3 class="home-cta-step-title">Potential Match Check</h3>
+          <p class="home-cta-step-desc">We determine whether surplus or overage funds may be associated with a foreclosure, tax sale, or public auction involving your property.</p>
+        </div>
+      </div>
+
+      <div class="home-cta-step">
+        <div class="home-cta-step-number" aria-hidden="true">03</div>
+        <div class="home-cta-step-content">
+          <h3 class="home-cta-step-title">Notice of Next Steps</h3>
+          <p class="home-cta-step-desc">If a potential match is identified, your dedicated recovery specialist will reach out to outline the next steps in the claim process.</p>
+        </div>
+      </div>
+
+      <div class="home-cta-step">
+        <div class="home-cta-step-number" aria-hidden="true">04</div>
+        <div class="home-cta-step-content">
+          <h3 class="home-cta-step-title">No Match, No Action</h3>
+          <p class="home-cta-step-desc">If no surplus funds are identified for your property, no further action is required and there is nothing owed to us.</p>
+        </div>
+      </div>
+
+    </div>
+    <!-- end steps -->
+
+    <!-- Trust badges row -->
+    <div class="home-cta-trust">
+      <span class="home-cta-trust-item">
+        <svg data-element-type="icon" data-icon-type="svg" viewBox="0 0 20 20" width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M10 2 L17 5 L17 11 C17 15 13.5 18 10 19 C6.5 18 3 15 3 11 L3 5 Z" stroke="rgba(197,199,204,0.7)" stroke-width="1.2" fill="none"></path><path d="M7 10 L9 12 L13 8" stroke="rgba(197,199,204,0.7)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        No Upfront Fees
+      </span>
+      <span class="home-cta-trust-sep" aria-hidden="true"></span>
+      <span class="home-cta-trust-item">
+        <svg data-element-type="icon" data-icon-type="svg" viewBox="0 0 20 20" width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="3" y="5" width="14" height="11" rx="2" stroke="rgba(197,199,204,0.7)" stroke-width="1.2" fill="none"></rect><path d="M7 5 L7 4 C7 2.9 8.3 2 10 2 C11.7 2 13 2.9 13 4 L13 5" stroke="rgba(197,199,204,0.7)" stroke-width="1.2" fill="none"></path><circle cx="10" cy="11" r="1.5" fill="rgba(197,199,204,0.7)"></circle></svg>
+        Confidential Review
+      </span>
+      <span class="home-cta-trust-sep" aria-hidden="true"></span>
+      <span class="home-cta-trust-item">
+        <svg data-element-type="icon" data-icon-type="svg" viewBox="0 0 20 20" width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="10" cy="10" r="7.5" stroke="rgba(197,199,204,0.7)" stroke-width="1.2" fill="none"></circle><path d="M10 6 L10 10 L13 12" stroke="rgba(197,199,204,0.7)" stroke-width="1.4" stroke-linecap="round"></path></svg>
+        No Obligation to Proceed
+      </span>
+    </div>
+
+  </div>
+</section>
+  </main>
+  
+  <footer class="site-footer"> <div class="footer-top"> <div class="footer-container"> <div class="footer-grid"> <!-- Column 1: Company Info --> <div class="footer-col footer-col--brand"> <img src="/assets/piedmont-triad-equity-solutions-financial-recovery-services-logo.webp" alt="Piedmont Triad Equity Solutions" class="logo"> <p class="footer-tagline">Helping individuals and families recover surplus funds they are rightfully owed — with clarity, integrity, and proven results.</p> <div class="footer-social">    </div> </div> <!-- Column 2: Quick Links --> <div class="footer-col footer-col--links"> <h3 class="footer-heading"><span class="footer-heading-accent"></span>Quick Links</h3> <ul class="footer-nav"> <li><a href="/">Home</a></li> <li><a href="/process">Process</a></li> <li><a href="/results">Results</a></li> <li><a href="/about">About</a></li> <li><a href="/contact">Contact</a></li> <li><a href="/start-claim" class="footer-cta-link">Start Claim <i class="fas fa-arrow-right"></i></a></li> </ul> </div> <!-- Column 3: Contact Info --> <div class="footer-col footer-col--contact"> <h3 class="footer-heading"><span class="footer-heading-accent"></span>Contact Us</h3> <ul class="footer-contact"> <li> <span class="contact-icon"><i class="fas fa-envelope"></i></span> <span class="contact-text"><a href="mailto:[business_email]">[business_email]</a></span> </li> <li> <span class="contact-icon"><i class="fas fa-phone"></i></span> <span class="contact-text"><a href="tel:[business_phone]">[business_phone]</a></span> </li> <li><a href="/"><span class="contact-icon"><i class="fas fa-map-marker-alt"></i></span> <span class="contact-text">[business_address]</span></a></li> </ul> </div> <!-- Column 4: Business Hours --> <div class="footer-col footer-col--hours"> <h3 class="footer-heading"><span class="footer-heading-accent"></span>Office Hours</h3> <ul class="footer-hours"> <li><a href="/"><span class="hours-day">Mon – Fri</span><span class="hours-time">9:00 AM – 6:00 PM</span></a></li> <li><a href="/"><span class="hours-day">Saturday</span><span class="hours-time">10:00 AM – 2:00 PM</span></a></li> <li><a href="/"><span class="hours-day">Sunday</span><span class="hours-time">Closed</span></a></li> </ul> <div class="footer-badge"><i class="fas fa-shield-alt"></i> No Recovery, No Fee</div> </div> </div> </div> </div> <!-- Divider --> <div class="footer-divider-wrap"><div class="footer-container"><div class="footer-divider"></div></div></div> <!-- Bottom Bar --> <div class="footer-bottom"> <div class="footer-container"> <div class="footer-bottom-inner"> <p class="footer-copyright">© 2026 Piedmont Triad Equity Solutions. All rights reserved.</p> <div class="footer-legal"> <a href="/privacy">Privacy Policy</a> <span class="legal-sep">·</span> <a href="/terms">Terms &amp; Conditions</a> <span class="legal-sep">·</span> <a href="/accessibility">Accessibility</a> <span class="legal-sep">·</span> <a href="https://zappy5.com" target="_blank" class="zappy-attribution">Generated by Zappy</a> </div> </div> </div> </div> </footer>
+  
+  <a href="https://wa.me/[whatsapp_handle]" class="whatsapp-float" aria-label="WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+  
+  <div data-integration="accessibility:toolbar"></div>
+
+    <script src="/script.js"></script>
+
+    <script id="zappy-mobile-submenu-script">
+    (function() {
+      function initMobileSubmenuToggles() {
+        if (window.innerWidth > 768) {
+          document.querySelectorAll('.mobile-submenu-toggle').forEach(function(btn) { btn.remove(); });
+          document.querySelectorAll('.sub-menu.mobile-expanded').forEach(function(menu) { menu.classList.remove('mobile-expanded'); });
+          return;
+        }
+        var items = document.querySelectorAll('.nav-menu li:has(.sub-menu), nav li:has(.sub-menu), .navbar li:has(.sub-menu), #navMenu li:has(.sub-menu)');
+        items.forEach(function(li) {
+          if (li.querySelector('.mobile-submenu-toggle')) return;
+          var submenu = li.querySelector('.sub-menu');
+          var parentLink = li.querySelector(':scope > a');
+          if (!submenu || !parentLink) return;
+          var toggleBtn = document.createElement('button');
+          toggleBtn.className = 'mobile-submenu-toggle';
+          toggleBtn.setAttribute('aria-label', 'Toggle submenu');
+          toggleBtn.setAttribute('type', 'button');
+          parentLink.insertAdjacentElement('afterend', toggleBtn);
+          toggleBtn.addEventListener('click', function(e) {
+            e.preventDefault(); e.stopPropagation();
+            document.querySelectorAll('.sub-menu.mobile-expanded').forEach(function(menu) {
+              if (menu !== submenu) { menu.classList.remove('mobile-expanded'); var t = menu.parentElement.querySelector('.mobile-submenu-toggle'); if(t) t.classList.remove('expanded'); }
+            });
+            submenu.classList.toggle('mobile-expanded');
+            toggleBtn.classList.toggle('expanded');
+          });
+        });
+      }
+      if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', initMobileSubmenuToggles); }
+      else { initMobileSubmenuToggles(); }
+      var resizeTimer; window.addEventListener('resize', function() { clearTimeout(resizeTimer); resizeTimer = setTimeout(initMobileSubmenuToggles, 250); });
+      // Re-initialize when mobile menu becomes visible (MutationObserver)
+      var observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+          if (mutation.type === 'attributes') {
+            var target = mutation.target;
+            if (target.classList && (target.classList.contains('active') || target.classList.contains('open'))) {
+              setTimeout(initMobileSubmenuToggles, 100);
+            }
+          }
+        });
+      });
+      setTimeout(function() {
+        document.querySelectorAll('.mobile-menu, .nav-menu, #navMenu, nav').forEach(function(menu) {
+          observer.observe(menu, { attributes: true, attributeFilter: ['class', 'style'] });
+        });
+      }, 500);
+    })();
+    </script>
+
+    <script id="zappy-navbar-scroll-effect">
+    (function(){
+      var nb=document.querySelector('nav.navbar,.navbar:not(.zappy-catalog-menu)');
+      var cm=document.querySelector('.zappy-catalog-menu,#zappy-catalog-menu');
+      if(!nb)return;
+      var fb='rgba(245,245,245,0.85)';
+      var th=60;
+      var rs=getComputedStyle(document.documentElement);
+      var td=rs.getPropertyValue('--text-dark').trim()||'#1a1a1a';
+      var tl=rs.getPropertyValue('--text-light').trim()||'#ffffff';
+      var st=true?td:tl;
+      nb.style.transition='background 0.3s ease,backdrop-filter 0.3s ease,-webkit-backdrop-filter 0.3s ease,box-shadow 0.3s ease';
+      if(cm)cm.style.transition='background 0.3s ease,backdrop-filter 0.3s ease,-webkit-backdrop-filter 0.3s ease';
+      var neSel='a,.navbar-brand,.navbar-brand a,.dropdown-toggle,.mobile-toggle,.phone-header-btn,.mobile-hamburger-btn,.mobile-close-btn,.mobile-submenu-toggle,.nav-link';
+      var skipCls=['cart-link','login-link','nav-search-toggle','search-toggle'];
+      function sTC(c,clr){var els=c.querySelectorAll(neSel);for(var i=0;i<els.length;i++){var sk=false;if(els[i].closest('.sub-menu')||els[i].closest('.dropdown-menu')){sk=true;}for(var j=0;j<skipCls.length;j++){if(els[i].classList.contains(skipCls[j])){sk=true;break;}}if(!sk)els[i].style.setProperty('color',clr,'important');}}
+      function cTC(c){var els=c.querySelectorAll(neSel);for(var i=0;i<els.length;i++){if(els[i].closest('.sub-menu')||els[i].closest('.dropdown-menu'))continue;els[i].style.removeProperty('color');}}
+      function applyScrolled(){
+        nb.classList.add('scrolled');
+        if(window.innerWidth>768){
+          nb.style.setProperty('--frosted-text',st);
+          nb.style.setProperty('background-image','none','important');
+          nb.style.setProperty('background-color',fb,'important');
+          nb.style.backdropFilter='blur(12px)';nb.style.webkitBackdropFilter='blur(12px)';nb.style.boxShadow='0 2px 16px rgba(0,0,0,0.12)';
+          sTC(nb,st);
+        }
+        if(cm){cm.classList.add('scrolled');if(window.innerWidth>768){cm.style.setProperty('background',fb,'important');cm.style.setProperty('backdrop-filter','blur(12px)','important');cm.style.setProperty('-webkit-backdrop-filter','blur(12px)','important');sTC(cm,st);}}
+      }
+      function onS(){
+        if(window._zappyNavNoDarkHero) return;
+        if(window.innerWidth<=768){nb.classList.remove('scrolled');cTC(nb);if(cm){cm.classList.remove('scrolled');cTC(cm);}return;}
+        var y=window.scrollY||window.pageYOffset;
+        if(y>th){
+          nb.classList.add('scrolled');nb.style.setProperty('background-color',fb,'important');nb.style.setProperty('background-image','none','important');
+          nb.style.setProperty('--frosted-text',st);nb.style.backdropFilter='blur(12px)';nb.style.webkitBackdropFilter='blur(12px)';nb.style.boxShadow='0 2px 16px rgba(0,0,0,0.12)';
+          sTC(nb,st);
+          if(cm){cm.classList.add('scrolled');cm.style.setProperty('background',fb,'important');cm.style.setProperty('backdrop-filter','blur(12px)','important');cm.style.setProperty('-webkit-backdrop-filter','blur(12px)','important');sTC(cm,st);}
+        }else{
+          nb.classList.remove('scrolled');nb.style.setProperty('background-color','transparent','important');nb.style.removeProperty('background-image');
+          nb.style.removeProperty('--frosted-text');nb.style.backdropFilter='none';nb.style.webkitBackdropFilter='none';nb.style.boxShadow='none';
+          cTC(nb);
+          if(cm){cm.classList.remove('scrolled');cm.style.setProperty('background','transparent','important');cm.style.setProperty('backdrop-filter','none','important');cm.style.setProperty('-webkit-backdrop-filter','none','important');cTC(cm);}
+        }
+      }
+      function sLum(rv,gv,bv){rv/=255;gv/=255;bv/=255;rv=rv<=0.03928?rv/12.92:Math.pow((rv+0.055)/1.055,2.4);gv=gv<=0.03928?gv/12.92:Math.pow((gv+0.055)/1.055,2.4);bv=bv<=0.03928?bv/12.92:Math.pow((bv+0.055)/1.055,2.4);return 0.2126*rv+0.7152*gv+0.0722*bv;}
+      window.addEventListener('scroll',onS,{passive:true});
+      window.addEventListener('resize',onS,{passive:true});
+      onS();
+      var heroEl=document.querySelector('section[class*="hero"],[data-hero-type],main:not(.courses-page-main)>section:first-child');
+      var hasDH=false;
+      if(heroEl){var hCs=getComputedStyle(heroEl);var hBI=hCs.backgroundImage;if(hBI&&hBI!=='none'){if(hBI.indexOf('url(')!==-1){var hM2=hCs.backgroundColor.match(/\d+/g);if(hM2&&hM2.length>=3){hasDH=sLum(parseInt(hM2[0]),parseInt(hM2[1]),parseInt(hM2[2]))<0.4;}else{hasDH=true;}}else if(hBI.indexOf('gradient')!==-1){var cM=hBI.match(/rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)/g);if(cM&&cM.length>0){var tLm=0;for(var ci=0;ci<cM.length;ci++){var pts=cM[ci].match(/\d+/g);tLm+=sLum(parseInt(pts[0]),parseInt(pts[1]),parseInt(pts[2]));}hasDH=(tLm/cM.length)<0.4;}else{hasDH=true;}}else{hasDH=true;}}else{var hM=hCs.backgroundColor.match(/\d+/g);if(hM&&hM.length>=3){hasDH=sLum(parseInt(hM[0]),parseInt(hM[1]),parseInt(hM[2]))<0.4;}}}
+      if(!hasDH){window.removeEventListener('scroll',onS);window.removeEventListener('resize',onS);applyScrolled();window._zappyNavNoDarkHero=true;}
+    })();
+    </script>
+</body>
+</html>
