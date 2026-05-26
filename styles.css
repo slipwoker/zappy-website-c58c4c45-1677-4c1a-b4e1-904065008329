@@ -12675,6 +12675,392 @@ div[id*="mic-access-tool-box"] button[class*="reset"] * {
     font-size: 0.95rem;
   }
 }
+
+/* Added Component Styles */
+/* =========================================
+   PTES FAQ SECTION
+   Piedmont Triad Equity Solutions
+   ========================================= */
+
+.ptes-faq-section {
+  background: var(--primary, #0D2347);
+  padding: 96px 20px;
+  font-family: system-ui, sans-serif;
+  direction: ltr;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle background texture pattern */
+.ptes-faq-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 15% 20%, rgba(201, 168, 76, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 85% 80%, rgba(201, 168, 76, 0.06) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+/* Container */
+.ptes-faq-container {
+  max-width: 860px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+/* ---- Header ---- */
+.ptes-faq-header {
+  text-align: center;
+  margin-bottom: 56px;
+}
+
+.ptes-faq-eyebrow {
+  display: inline-block;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #C9A84C;
+  margin-bottom: 14px;
+  padding: 6px 16px;
+  border: 1px solid rgba(201, 168, 76, 0.35);
+  border-radius: 100px;
+  background: rgba(201, 168, 76, 0.08);
+}
+
+.ptes-faq-title {
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1.15;
+  margin: 0 0 16px 0;
+  letter-spacing: -0.02em;
+}
+
+.ptes-faq-title-accent {
+  background: linear-gradient(135deg, #C9A84C 0%, #E8C96A 50%, #A8882E 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.ptes-faq-subtitle {
+  font-size: 1.05rem;
+  color: rgba(255, 255, 255, 0.65);
+  margin: 0;
+  line-height: 1.6;
+  max-width: 520px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ---- FAQ List ---- */
+.ptes-faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ---- FAQ Item Card ---- */
+.ptes-faq-item {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(201, 168, 76, 0.28);
+  border-radius: 14px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.18);
+  overflow: hidden;
+  transition: box-shadow 0.3s ease, transform 0.3s ease, border-color 0.3s ease;
+}
+
+.ptes-faq-item:hover {
+  box-shadow: 0 8px 36px rgba(0, 0, 0, 0.28);
+  transform: translateY(-2px);
+  border-color: rgba(201, 168, 76, 0.55);
+}
+
+.ptes-faq-item.active {
+  border-color: rgba(201, 168, 76, 0.6);
+  background: rgba(255, 255, 255, 0.07);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(201, 168, 76, 0.15);
+}
+
+/* ---- Question Button ---- */
+.ptes-faq-question {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 22px 26px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  color: #ffffff;
+  font-family: system-ui, sans-serif;
+  font-size: 1.08rem;
+  font-weight: 600;
+  line-height: 1.4;
+  transition: background 0.25s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.ptes-faq-question:hover {
+  background: rgba(201, 168, 76, 0.07);
+}
+
+.ptes-faq-question:focus-visible {
+  outline: 2px solid #C9A84C;
+  outline-offset: -2px;
+  border-radius: 13px;
+}
+
+/* FAQ Number Badge */
+.ptes-faq-number {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #C9A84C 0%, #E8C96A 50%, #A8882E 100%);
+  color: #0D2347;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  flex-shrink: 0;
+}
+
+/* Question Text */
+.ptes-faq-question-text {
+  flex: 1;
+  color: #ffffff;
+}
+
+/* Chevron */
+.ptes-faq-chevron {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(201, 168, 76, 0.12);
+  color: #C9A84C;
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), background 0.25s ease;
+}
+
+.ptes-faq-item.active .ptes-faq-chevron {
+  transform: rotate(180deg);
+  background: rgba(201, 168, 76, 0.22);
+}
+
+/* ---- Answer Panel ---- */
+.ptes-faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition:
+    max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.3s ease,
+    padding 0.3s ease;
+  padding: 0 26px;
+}
+
+.ptes-faq-item.active .ptes-faq-answer {
+  max-height: 600px;
+  opacity: 1;
+  padding-bottom: 24px;
+}
+
+/* Answer Inner — accent border */
+.ptes-faq-answer-inner {
+  border-left: 3px solid #C9A84C;
+  padding: 16px 20px;
+  background: rgba(201, 168, 76, 0.05);
+  border-radius: 0 8px 8px 0;
+}
+
+.ptes-faq-answer-inner p {
+  margin: 0 0 14px 0;
+  font-size: 0.97rem;
+  color: rgba(255, 255, 255, 0.80);
+  line-height: 1.75;
+}
+
+.ptes-faq-answer-inner p:last-of-type {
+  margin-bottom: 18px;
+}
+
+/* CTA Link inside answer */
+.ptes-faq-cta-link {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: #E8C96A;
+  text-decoration: none;
+  line-height: 1.5;
+  border-bottom: 1px solid rgba(232, 201, 106, 0.35);
+  padding-bottom: 2px;
+  transition: color 0.2s ease, border-color 0.2s ease, gap 0.2s ease;
+}
+
+.ptes-faq-cta-link:hover {
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.5);
+  gap: 12px;
+}
+
+.ptes-faq-cta-link:focus-visible {
+  outline: 2px solid #C9A84C;
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.ptes-faq-arrow {
+  flex-shrink: 0;
+  font-size: 1rem;
+  line-height: 1.5;
+  transition: transform 0.2s ease;
+}
+
+.ptes-faq-cta-link:hover .ptes-faq-arrow {
+  transform: translateX(3px);
+}
+
+/* ---- Bottom CTA ---- */
+.ptes-faq-bottom-cta {
+  margin-top: 56px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.ptes-faq-bottom-text {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.60);
+  margin: 0;
+  line-height: 1.6;
+}
+
+.ptes-faq-bottom-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px 36px;
+  background: linear-gradient(135deg, #C9A84C 0%, #E8C96A 50%, #A8882E 100%);
+  color: #0D2347;
+  font-family: system-ui, sans-serif;
+  font-size: 0.97rem;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  text-decoration: none;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+  box-shadow: 0 4px 18px rgba(201, 168, 76, 0.3);
+}
+
+.ptes-faq-bottom-btn:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(201, 168, 76, 0.45);
+}
+
+.ptes-faq-bottom-btn:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 3px;
+}
+
+/* =========================================
+   RESPONSIVE — MOBILE
+   ========================================= */
+@media (max-width: 768px) {
+  .ptes-faq-section {
+    padding: 72px 16px;
+  }
+
+  .ptes-faq-header {
+    margin-bottom: 40px;
+  }
+
+  .ptes-faq-title {
+    font-size: clamp(1.7rem, 7vw, 2.2rem);
+  }
+
+  .ptes-faq-subtitle {
+    font-size: 0.95rem;
+  }
+
+  .ptes-faq-question {
+    padding: 18px 18px;
+    font-size: 1rem;
+    gap: 12px;
+  }
+
+  .ptes-faq-number {
+    width: 34px;
+    height: 34px;
+    font-size: 0.72rem;
+  }
+
+  .ptes-faq-answer {
+    padding: 0 18px;
+  }
+
+  .ptes-faq-item.active .ptes-faq-answer {
+    padding-bottom: 20px;
+  }
+
+  .ptes-faq-answer-inner {
+    padding: 14px 16px;
+  }
+
+  .ptes-faq-answer-inner p {
+    font-size: 0.93rem;
+  }
+
+  .ptes-faq-bottom-btn {
+    width: 100%;
+    max-width: 320px;
+    padding: 16px 24px;
+  }
+
+  .ptes-faq-bottom-cta {
+    margin-top: 44px;
+  }
+}
+
+@media (max-width: 480px) {
+  .ptes-faq-section {
+    padding: 56px 14px;
+  }
+
+  .ptes-faq-question {
+    padding: 16px 14px;
+    font-size: 0.95rem;
+  }
+
+  .ptes-faq-chevron {
+    width: 28px;
+    height: 28px;
+  }
+
+  .ptes-faq-answer {
+    padding: 0 14px;
+  }
+
+  .ptes-faq-item.active .ptes-faq-answer {
+    padding-bottom: 18px;
+  }
+}
 /* mobile-submenu-overflow-fix */
 @media (max-width: 768px) {
   .navbar .sub-menu.mobile-expanded,
