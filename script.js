@@ -1410,6 +1410,44 @@ window.onload = function() {
 })();
 
 
+/* Added Component Script */
+(function () {
+  'use strict';
+
+  const faqItems = document.querySelectorAll('.ptes-faq__item');
+
+  faqItems.forEach(function (item) {
+    const btn = item.querySelector('.ptes-faq__question');
+    if (!btn) return;
+
+    btn.addEventListener('click', function () {
+      const isActive = item.classList.contains('active');
+
+      // Close all open items
+      faqItems.forEach(function (el) {
+        el.classList.remove('active');
+        const elBtn = el.querySelector('.ptes-faq__question');
+        if (elBtn) elBtn.setAttribute('aria-expanded', 'false');
+      });
+
+      // Toggle clicked item
+      if (!isActive) {
+        item.classList.add('active');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
+
+    // Keyboard: allow Enter / Space to toggle (native button handles this, but ensure no default scroll on Space)
+    btn.addEventListener('keydown', function (e) {
+      if (e.key === ' ') {
+        e.preventDefault();
+        btn.click();
+      }
+    });
+  });
+})();
+
+
 /* ZAPPY_PUBLISHED_LIGHTBOX_RUNTIME */
 (function(){
   try {
